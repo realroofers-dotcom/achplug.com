@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ACHplug — collect bank transfers on your website</title>
+<!-- achplug-site 1b, 2 Sep 2026: AdHotBox placements added -->
+<!-- 1c: two ways to use it, WordPress or any site, made explicit top to bottom -->
+<!-- 1d: works-with strip added under the hero -->
 <meta name="description" content="A checkout box that lets customers pay you straight from their bank, with a discount you set. WordPress plugin or one line of code. $25.">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -98,21 +101,33 @@
 <div class="wrap">
   <header>
     <a class="logo" href="/">ACH<b>plug</b></a>
-    <nav><a href="#how">How</a><a href="#screens">Screens</a><a href="#buy">$25</a></nav>
+    <nav><a href="#how">How</a><a href="#screens">Screens</a><a href="#buy">Get it</a></nav>
   </header>
 
   <div class="hero">
-    <h1>Collect bank transfers on your website.</h1>
-    <p>A checkout box that lets a customer pay you straight from their bank — with a discount you set — instead of through a card processor. Works on WordPress or any site. Money lands in your account. Nobody in the middle.</p>
-    <a class="cta" href="#buy">Get the plugin <span>$25</span></a>
+    <h1>Collect bank transfers on any website.</h1>
+    <p>A checkout box that lets a customer pay you straight from their bank — with a discount you set — instead of through a card processor. Money lands in your account. Nobody in the middle.</p>
+    <p style="margin-top:10px;font-weight:600">Two ways to use it, same price, same box:</p>
+    <div class="two" style="margin-top:10px">
+      <div><b>WordPress</b><p>A plugin. Upload, activate, enter your bank details, put a shortcode on a page.</p></div>
+      <div><b>Any other site</b><p>One line of code in any code block or embed. No install, nothing to host.</p></div>
+    </div>
+    <a class="cta" href="#buy">Get ACHplug <span>$25</span></a>
   </div>
+
+
+  <section id="works" style="padding:20px 0">
+    <p style="font-size:14px;color:var(--slate);margin-bottom:8px">Works with</p>
+    <p style="font-size:17px;line-height:1.9"><b>WordPress</b> · <b>Wix</b> · <b>Squarespace</b> · <b>Square Online</b> · <b>Drupal</b> · <b>Joomla</b> · <b>Shopify</b> · <b>Webflow</b> · <b>Weebly</b> · <b>GoDaddy</b> · <b>Carrd</b> · <b>Ghost</b> · plain HTML · anything with a code block or embed</p>
+    <p style="font-size:14px;color:var(--slate);margin-top:6px">Wix, Square Online and some others put custom code on their paid plans; if you can add an HTML embed to a page, ACHplug goes in it.</p>
+  </section>
 
   <section id="how">
     <h2>Three steps</h2>
     <ol class="steps">
       <li><b>Install it.</b> WordPress: Plugins → Add New → Upload the zip → Activate. Any other site: paste one line of code where the box should go.</li>
       <li><b>Enter your bank details and your discount.</b> Payee name, routing number, account number, and the discount — 0%, 2%, 5%, 30%, your call, changed any time. The same numbers printed on every cheque you have ever written: they let people pay you, not take from you.</li>
-      <li><b>Put the box on a page.</b> <code>[achplug name="What you sell" price="20"]</code> — that's it. A customer chooses card or bank, sees the slip, sends the money, presses <em>I've sent it</em>. You get an email, mark it paid when it lands, and they get their link.</li>
+      <li><b>Put the box on a page.</b> WordPress: <code>[achplug name="What you sell" price="20"]</code>. Any other site: the one line below. That's it. A customer chooses card or bank, sees the slip, sends the money, presses <em>I've sent it</em>. You get an email, mark it paid when it lands, and they get their link.</li>
     </ol>
     <pre>&lt;!-- any non-WordPress site: one line --&gt;
 &lt;script src="https://achplug.com/plug.js" data-name="What you sell" data-price="20"&gt;&lt;/script&gt;</pre>
@@ -174,22 +189,35 @@
   </section>
 
   <section id="buy">
-    <h2>Get the plugin</h2>
-    <div class="price">
-      <div class="big">$25 <small>once. Yours to keep.</small></div>
-      <ul><li>WordPress plugin zip, and the one-line version for any other site</li><li>Updates for a year</li><li>Email support from a person</li></ul>
-      <!-- the buy box is ACHplug itself: card or bank, a real demonstration -->
-      <div class="ach" id="buybox">
-        <div class="ach-head"><h3>ACHplug</h3><p>WordPress plugin + one-line version. Sent to your email.</p></div>
-        <div class="screen on">
-          <div class="choice">
-            <div class="opt card"><small>Pay by card</small><div class="p">$25.00</div><small>Instant.</small><a class="go" href="[CARD PAYMENT LINK]">Pay by card</a></div>
-            <div class="opt bank"><small>Pay from your bank</small><div class="p">$23.75</div><span class="was">$25.00</span><span class="save">You save 5%</span><a class="go" href="[BANK CHECKOUT PAGE]">Pay from my bank</a></div>
+    <h2>Get ACHplug</h2>
+    <p class="lead">$25 once. Pick the one that matches your site. Both get updates for a year and email support from a person.</p>
+    <div class="two">
+      <div>
+        <b>For WordPress</b>
+        <p>The plugin zip. Orders and the mark-paid button live in your own WordPress dashboard. Nothing leaves your site.</p>
+        <div class="ach" style="margin-top:12px">
+          <div class="screen on" style="padding:14px">
+            <div class="choice" style="grid-template-columns:1fr">
+              <div class="opt card"><small>Pay by card</small><div class="p">$25.00</div><a class="go" href="[CARD PAYMENT LINK — WORDPRESS]">Pay by card</a></div>
+              <div class="opt bank"><small>Pay from your bank</small><div class="p">$23.75</div><span class="was">$25.00</span><span class="save">You save 5%</span><a class="go" href="[BANK CHECKOUT — WORDPRESS]">Pay from my bank</a></div>
+            </div>
           </div>
         </div>
-        <div class="foot"><span>Questions? [PUBLISHED EMAIL]</span><span>Pay-from-bank checkout by ACHplug</span></div>
+      </div>
+      <div>
+        <b>For any other site</b>
+        <p>One line of code and a site key. Orders and the mark-paid button live in your desk at achplug.com. Works anywhere you can paste a script.</p>
+        <div class="ach" style="margin-top:12px">
+          <div class="screen on" style="padding:14px">
+            <div class="choice" style="grid-template-columns:1fr">
+              <div class="opt card"><small>Pay by card</small><div class="p">$25.00</div><a class="go" href="[CARD PAYMENT LINK — ONE LINE]">Pay by card</a></div>
+              <div class="opt bank"><small>Pay from your bank</small><div class="p">$23.75</div><span class="was">$25.00</span><span class="save">You save 5%</span><a class="go" href="[BANK CHECKOUT — ONE LINE]">Pay from my bank</a></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <p class="lead" style="margin-top:12px">Not sure which? If you log in to a WordPress dashboard to edit your site, take the plugin. If you edit your site anywhere else, take the one line. Email us and we will tell you.</p>
   </section>
 
   <footer>ACHplug is a product of [ENTITY]. &nbsp;·&nbsp; <a href="mailto:[PUBLISHED EMAIL]">[PUBLISHED EMAIL]</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
@@ -198,5 +226,7 @@
   function show(n){[1,2,3].forEach(k=>document.getElementById('s'+k).classList.toggle('on',k===n));document.getElementById('screens').scrollIntoView({block:'start'});}
   function cp(b,t){navigator.clipboard&&navigator.clipboard.writeText(t);b.dataset.done=1;b.textContent='Copied';setTimeout(()=>{b.dataset.done=0;b.textContent='Copy'},1500);}
 </script>
+<!-- AdHotBox: places itself after the opening paragraphs and above the footer; never inside the live box, the buy box or the code samples -->
+<script src="https://adhotbox.com/box.js" data-auto data-not="#screens, #buy, .ach, pre"></script>
 </body>
 </html>
