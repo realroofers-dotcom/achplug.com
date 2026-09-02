@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACHplug — Features</title>
+<!-- achplug-site 1e, 2 Sep 2026: features page (1f: footer credit and contact). The screens below are the real pages rendered from the worker code with sample data. -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F7F9F6;--ink:#17251F;--green:#1E6B4E;--deep:#144A36;--mist:#E6ECE8;--slate:#5F6F68;--line:#C9D4CE;--white:#fff;
+        --sans:"Source Sans 3",system-ui,sans-serif;--serif:"Source Serif 4",Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.5;font-size:17px}
+  a{color:var(--green)} button{font:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--green);outline-offset:2px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  header{padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:var(--serif);font-size:24px;font-weight:600;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .logo b{color:var(--green);font-weight:600}
+  header nav a{margin-left:16px;font-size:15px;text-decoration:none;color:var(--slate)}
+  .hero{padding:44px 0 26px}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:18ch}
+  .hero p{font-size:19px;color:var(--slate);margin-top:14px;max-width:48ch}
+  .hero .cta{display:inline-block;margin-top:22px;background:var(--green);color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:8px}
+  .hero .cta span{opacity:.75;font-weight:400;margin-left:8px}
+  section{padding:30px 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin-bottom:12px}
+  .lead{color:var(--slate);max-width:56ch;margin-bottom:14px}
+  ol.steps{counter-reset:s;list-style:none;display:grid;gap:12px}
+  ol.steps li{counter-increment:s;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 16px 16px 58px;position:relative}
+  ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;font-family:var(--serif);font-weight:600;display:flex;align-items:center;justify-content:center}
+  ol.steps li b{display:block;margin-bottom:2px}
+  ol.steps code{background:var(--mist);padding:2px 6px;border-radius:4px;font-size:.92em}
+  pre{background:var(--ink);color:var(--paper);padding:14px 16px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.5;margin-top:10px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .two div{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .two b{display:block;margin-bottom:4px}
+  .two p{font-size:15px;color:var(--slate)}
+  .fit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  .fit .demo-a,.fit .demo-b{border-radius:10px;padding:14px;font-size:14px}
+  .demo-a{background:#fff;border:1px solid #ddd;font-family:Georgia,serif;color:#222}
+  .demo-b{background:#101418;color:#e8ecef;border:1px solid #2a3138;font-family:system-ui,sans-serif}
+  .mini{margin-top:8px;border:1.5px solid;border-radius:8px;padding:10px}
+  .demo-a .mini{border-color:#b0413e;background:#fbf4f3}.demo-a .mini i{color:#b0413e}
+  .demo-b .mini{border-color:#4fa3ff;background:#161c22}.demo-b .mini i{color:#4fa3ff}
+  .mini i{font-style:normal;font-weight:600;font-size:12px}
+  .mini em{font-style:normal;display:block;font-size:22px;font-weight:600;margin:2px 0}
+  .mini s{opacity:.55;font-size:12px}
+  .mini u{display:block;text-decoration:none;text-align:center;border-radius:5px;padding:6px;margin-top:8px;color:#fff;font-size:13px;font-weight:600}
+  .demo-a .mini u{background:#b0413e}.demo-b .mini u{background:#4fa3ff;color:#0b0f13}
+  .price{background:var(--white);border:1.5px solid var(--green);border-radius:12px;padding:22px}
+  .price .big{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1}
+  .price .big small{font-family:var(--sans);font-size:16px;font-weight:400;color:var(--slate);margin-left:8px}
+  .price ul{margin:12px 0 0 18px;color:var(--slate)}
+  .price ul li{margin:4px 0}
+  footer{padding:26px 0 40px;font-size:14px;color:var(--slate);border-top:1px solid var(--line)}
+  footer a{color:inherit}
+  @media(max-width:560px){.two,.fit{grid-template-columns:1fr}header nav a{margin-left:10px}}
+
+  /* ---- the widget, exactly as it ships (inherits font + colour from the page) ---- */
+  .ach{--ach-accent:var(--green);--ach-bg:var(--paper);--ach-line:var(--line);--ach-radius:10px;
+       font:inherit;color:inherit;background:var(--white);border:1px solid var(--ach-line);border-radius:var(--ach-radius);overflow:hidden;margin-top:14px}
+  .ach-head{padding:20px 20px 4px}.ach-head h3{font-family:var(--serif);font-weight:600;font-size:21px}.ach-head p{color:var(--slate);font-size:15px}
+  .screen{display:none;padding:12px 20px 20px}.screen.on{display:block}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .opt{border:1.5px solid var(--ach-line);border-radius:var(--ach-radius);padding:14px 14px 12px;background:var(--white)}
+  .opt small{display:block;font-size:14px;color:var(--slate)}
+  .opt .p{font-family:var(--serif);font-size:32px;line-height:1.05;margin:5px 0 3px;font-variant-numeric:tabular-nums;font-weight:600}
+  .opt .was{font-size:14px;color:var(--slate);text-decoration:line-through}
+  .opt .save{display:inline-block;margin-left:6px;font-size:13px;font-weight:600;color:var(--ach-accent)}
+  .opt.bank{border-color:var(--ach-accent);background:var(--ach-bg)}
+  .opt .go{margin-top:12px;display:block;width:100%;border:0;border-radius:7px;padding:10px;font-weight:600;font-size:15px;text-align:center;text-decoration:none}
+  .opt.card .go{background:var(--ink);color:var(--paper)}.opt.bank .go{background:var(--ach-accent);color:#fff}
+  details.why{margin-top:14px;border-top:1px solid var(--ach-line);padding-top:10px;font-size:15px}
+  details.why summary{cursor:pointer;color:var(--ach-accent);font-weight:600;list-style:none}details.why summary::-webkit-details-marker{display:none}
+  details.why p{margin-top:6px;max-width:60ch}
+  .field{margin-top:10px}.field label{display:block;font-size:14px;color:var(--slate);margin-bottom:3px}
+  .field input{width:100%;border:1.5px solid var(--ach-line);border-radius:7px;padding:9px 11px;font:inherit;font-size:16px}
+  .field input:focus{border-color:var(--ach-accent);outline:none}
+  .slip{margin-top:14px;border:1.5px solid var(--ach-accent);border-radius:var(--ach-radius);background:var(--ach-bg);padding:14px}
+  .slip h4{font-family:var(--serif);font-weight:600;font-size:17px;margin-bottom:6px}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;border-bottom:1px solid var(--ach-line)}.row:last-child{border-bottom:0}
+  .row .k{font-size:14px;color:var(--slate)}.row .v{font-family:var(--serif);font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:.02em;text-align:right;font-weight:600}
+  .row .v.big{font-size:24px;color:var(--deep)}
+  .copy{border:1px solid var(--ach-line);background:var(--white);border-radius:5px;font-size:12px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+  .copy[data-done="1"]{background:var(--ach-accent);color:#fff;border-color:var(--ach-accent)}
+  .steps2{margin:12px 0 0 20px;font-size:15px;max-width:60ch}.steps2 li{margin:5px 0}
+  .primary{margin-top:14px;width:100%;border:0;border-radius:7px;padding:12px;font-weight:600;font-size:16px;background:var(--ach-accent);color:#fff}
+  .ghost{margin-top:8px;width:100%;border:0;background:none;color:var(--slate);font-size:14px;padding:6px}
+  .done{text-align:center;padding:8px 0 4px}.done .mark{width:52px;height:52px;border-radius:50%;background:var(--ach-accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:8px}
+  .done h4{font-family:var(--serif);font-weight:600;font-size:21px}.done p{color:var(--slate);margin:6px auto 0;max-width:44ch}
+  .done .ord{font-family:var(--serif);font-size:28px;margin:10px 0 2px;letter-spacing:.03em;font-weight:600}
+  .foot{padding:10px 20px 12px;border-top:1px solid var(--ach-line);font-size:12.5px;color:var(--slate);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  @media(max-width:480px){.choice{grid-template-columns:1fr}}
+</style>
+<style>
+  .feat{display:grid;grid-template-columns:1fr;gap:14px;padding:26px 0;border-top:1px solid var(--line)}
+  .feat h2{margin-bottom:4px}
+  .feat p{color:var(--slate);max-width:60ch}
+  .feat ul{margin:8px 0 0 18px;color:var(--slate)}
+  .shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 8px 30px rgba(23,37,31,.08)}
+  .shot iframe{width:100%;height:520px;border:0;display:block}
+  .shot.short iframe{height:260px}
+  .shot.tall iframe{height:760px}
+  .cap{font-size:13px;color:var(--slate);padding:8px 12px;border-top:1px solid var(--line);background:var(--paper)}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .toc a{font-size:14px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:6px 12px;background:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/">ACH<b>plug</b></a>
+    <nav><a href="/#how">How</a><a href="/#screens">Screens</a><a href="/features.html">Features</a><a href="/#buy">Get it</a></nav>
+  </header>
+
+  <div class="hero" style="padding-bottom:10px">
+    <h1>What you get.</h1>
+    <p>Every screen below is the real thing, rendered with sample orders. Nothing is mocked up.</p>
+    <div class="toc"><a href="#box">The checkout box</a><a href="#desk">Your desk</a><a href="#register">Sales register</a><a href="#verify">Bank check</a><a href="#emails">Receipts &amp; emails</a><a href="#donate">Donations</a><a href="#fits">Fits your site</a></div>
+  </div>
+
+  <section class="feat" id="box">
+    <h2>The checkout box</h2>
+    <p>Two prices side by side — the card price and the bank price with your discount already worked out. Pick the bank and the customer gets a slip with your payee name, routing and account number, an order reference, Copy buttons, and four plain steps for their banking app. They press <em>I've sent it</em>. That is the whole customer experience.</p>
+    <ul><li>Discount is yours to set: 0%, 2%, 5%, 30%, changed any time</li><li>Optional card button linking to any checkout you already have</li><li>No customer bank details are ever collected — they pay you, you never pull from them</li></ul>
+    <p><a href="/#screens">Try it live on the front page →</a></p>
+  </section>
+
+  <section class="feat" id="desk">
+    <h2>Your desk</h2>
+    <p>Where the work happens. Your code to paste is at the top. Under it, only the orders still waiting for money — each with a Mark received button that emails the customer their receipt and link. Paid orders leave the desk so it never crowds.</p>
+    <div class="shot"><iframe src="shots/desk.html" title="The desk" loading="lazy"></iframe><div class="cap">The desk with two orders waiting. The red count follows you on the menu.</div></div>
+  </section>
+
+  <section class="feat" id="register">
+    <h2>Sales register</h2>
+    <p>Every invoice you have ever taken, on one report page: paid all time, awaiting, the card fees you did not pay, totals by month and by product, then the invoices themselves under Unpaid / Paid / All tabs with a search box. Download the lot as CSV for your accountant.</p>
+    <div class="shot tall"><iframe src="shots/register.html" title="Sales register" loading="lazy"></iframe><div class="cap">The register with seven sample orders, opened on the Unpaid tab.</div></div>
+  </section>
+
+  <section class="feat" id="verify">
+    <h2>Your routing number is checked against the Federal Reserve directory</h2>
+    <p>A mistyped routing number means a customer's money goes nowhere. So when you save, the number is looked up in the Federal Reserve ACH directory — 18,000 banks and credit unions — and the bank's name is filled in for you. A number that is not in the directory is refused, and the desk tells you why.</p>
+    <div class="shot short"><iframe src="shots/rejected.html" title="Rejected routing number" loading="lazy"></iframe><div class="cap">What a wrong number gets.</div></div>
+    <div class="shot"><iframe src="shots/settings.html" title="Settings" loading="lazy"></iframe><div class="cap">Settings: sale or donation, then where the money goes. The bank name came from the directory.</div></div>
+  </section>
+
+  <section class="feat" id="emails">
+    <h2>Two emails, your words</h2>
+    <p>The customer gets one the moment they press <em>I've sent it</em> — the amount, the reference, your bank details again — and a receipt when you mark the money received. Standard wording is already in each box; press Edit to make it yours. Replies come to your address.</p>
+    <div class="shot short" style="--h:300px"><iframe src="shots/emails.html" title="Email templates" loading="lazy" style="height:340px"></iframe><div class="cap">The receipt template in donation mode, with the tax line.</div></div>
+  </section>
+
+  <section class="feat" id="donate">
+    <h2>Donations</h2>
+    <p>Tick <em>Taking donations</em> and the box changes: no discount, the donor picks an amount from your suggested list or types their own, the wording becomes "give from your bank — no card fees taken, 100% arrives," and the receipt carries your tax ID and the line the IRS wants on a donation acknowledgment. Built for nonprofits, churches, and anyone raising money.</p>
+  </section>
+
+  <section class="feat" id="fits">
+    <h2>Fits your site</h2>
+    <p>The box has no font and no colours of its own. It takes your theme's type and text colour; four variables set the accent, background, line and corner radius, and the WordPress plugin reads them from your theme. It looks like it was always there.</p>
+    <p>Works with WordPress, Wix, Squarespace, Square Online, Drupal, Joomla, Shopify, Webflow, Weebly, GoDaddy, Carrd, Ghost, plain HTML — anything with a code block or embed.</p>
+  </section>
+
+  <section class="feat">
+    <h2>$25, once</h2>
+    <p>Both versions — the WordPress plugin, or the one line of code and a desk here for any other site. Updates for a year, email support from a person.</p>
+    <p><a class="cta" href="/#buy">Get ACHplug <span>$25</span></a></p>
+  </section>
+
+  <footer>Created by Mark Nejmeh, a small business person just like you. &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
+</div>
+<script src="https://adhotbox.com/box.js" data-auto data-not=".shot, .feat#box, pre"></script>
+</body>
+</html>
