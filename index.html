@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACHplug — collect bank transfers on your website</title>
+<meta name="description" content="A checkout box that lets customers pay you straight from their bank, with a discount you set. WordPress plugin or one line of code. $25.">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F7F9F6;--ink:#17251F;--green:#1E6B4E;--deep:#144A36;--mist:#E6ECE8;--slate:#5F6F68;--line:#C9D4CE;--white:#fff;
+        --sans:"Source Sans 3",system-ui,sans-serif;--serif:"Source Serif 4",Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.5;font-size:17px}
+  a{color:var(--green)} button{font:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--green);outline-offset:2px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  header{padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:var(--serif);font-size:24px;font-weight:600;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+  .logo b{color:var(--green);font-weight:600}
+  header nav a{margin-left:16px;font-size:15px;text-decoration:none;color:var(--slate)}
+  .hero{padding:44px 0 26px}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:18ch}
+  .hero p{font-size:19px;color:var(--slate);margin-top:14px;max-width:48ch}
+  .hero .cta{display:inline-block;margin-top:22px;background:var(--green);color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:8px}
+  .hero .cta span{opacity:.75;font-weight:400;margin-left:8px}
+  section{padding:30px 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin-bottom:12px}
+  .lead{color:var(--slate);max-width:56ch;margin-bottom:14px}
+  ol.steps{counter-reset:s;list-style:none;display:grid;gap:12px}
+  ol.steps li{counter-increment:s;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 16px 16px 58px;position:relative}
+  ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;font-family:var(--serif);font-weight:600;display:flex;align-items:center;justify-content:center}
+  ol.steps li b{display:block;margin-bottom:2px}
+  ol.steps code{background:var(--mist);padding:2px 6px;border-radius:4px;font-size:.92em}
+  pre{background:var(--ink);color:var(--paper);padding:14px 16px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.5;margin-top:10px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .two div{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .two b{display:block;margin-bottom:4px}
+  .two p{font-size:15px;color:var(--slate)}
+  .fit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  .fit .demo-a,.fit .demo-b{border-radius:10px;padding:14px;font-size:14px}
+  .demo-a{background:#fff;border:1px solid #ddd;font-family:Georgia,serif;color:#222}
+  .demo-b{background:#101418;color:#e8ecef;border:1px solid #2a3138;font-family:system-ui,sans-serif}
+  .mini{margin-top:8px;border:1.5px solid;border-radius:8px;padding:10px}
+  .demo-a .mini{border-color:#b0413e;background:#fbf4f3}.demo-a .mini i{color:#b0413e}
+  .demo-b .mini{border-color:#4fa3ff;background:#161c22}.demo-b .mini i{color:#4fa3ff}
+  .mini i{font-style:normal;font-weight:600;font-size:12px}
+  .mini em{font-style:normal;display:block;font-size:22px;font-weight:600;margin:2px 0}
+  .mini s{opacity:.55;font-size:12px}
+  .mini u{display:block;text-decoration:none;text-align:center;border-radius:5px;padding:6px;margin-top:8px;color:#fff;font-size:13px;font-weight:600}
+  .demo-a .mini u{background:#b0413e}.demo-b .mini u{background:#4fa3ff;color:#0b0f13}
+  .price{background:var(--white);border:1.5px solid var(--green);border-radius:12px;padding:22px}
+  .price .big{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1}
+  .price .big small{font-family:var(--sans);font-size:16px;font-weight:400;color:var(--slate);margin-left:8px}
+  .price ul{margin:12px 0 0 18px;color:var(--slate)}
+  .price ul li{margin:4px 0}
+  footer{padding:26px 0 40px;font-size:14px;color:var(--slate);border-top:1px solid var(--line)}
+  footer a{color:inherit}
+  @media(max-width:560px){.two,.fit{grid-template-columns:1fr}header nav a{margin-left:10px}}
+
+  /* ---- the widget, exactly as it ships (inherits font + colour from the page) ---- */
+  .ach{--ach-accent:var(--green);--ach-bg:var(--paper);--ach-line:var(--line);--ach-radius:10px;
+       font:inherit;color:inherit;background:var(--white);border:1px solid var(--ach-line);border-radius:var(--ach-radius);overflow:hidden;margin-top:14px}
+  .ach-head{padding:20px 20px 4px}.ach-head h3{font-family:var(--serif);font-weight:600;font-size:21px}.ach-head p{color:var(--slate);font-size:15px}
+  .screen{display:none;padding:12px 20px 20px}.screen.on{display:block}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .opt{border:1.5px solid var(--ach-line);border-radius:var(--ach-radius);padding:14px 14px 12px;background:var(--white)}
+  .opt small{display:block;font-size:14px;color:var(--slate)}
+  .opt .p{font-family:var(--serif);font-size:32px;line-height:1.05;margin:5px 0 3px;font-variant-numeric:tabular-nums;font-weight:600}
+  .opt .was{font-size:14px;color:var(--slate);text-decoration:line-through}
+  .opt .save{display:inline-block;margin-left:6px;font-size:13px;font-weight:600;color:var(--ach-accent)}
+  .opt.bank{border-color:var(--ach-accent);background:var(--ach-bg)}
+  .opt .go{margin-top:12px;display:block;width:100%;border:0;border-radius:7px;padding:10px;font-weight:600;font-size:15px;text-align:center;text-decoration:none}
+  .opt.card .go{background:var(--ink);color:var(--paper)}.opt.bank .go{background:var(--ach-accent);color:#fff}
+  details.why{margin-top:14px;border-top:1px solid var(--ach-line);padding-top:10px;font-size:15px}
+  details.why summary{cursor:pointer;color:var(--ach-accent);font-weight:600;list-style:none}details.why summary::-webkit-details-marker{display:none}
+  details.why p{margin-top:6px;max-width:60ch}
+  .field{margin-top:10px}.field label{display:block;font-size:14px;color:var(--slate);margin-bottom:3px}
+  .field input{width:100%;border:1.5px solid var(--ach-line);border-radius:7px;padding:9px 11px;font:inherit;font-size:16px}
+  .field input:focus{border-color:var(--ach-accent);outline:none}
+  .slip{margin-top:14px;border:1.5px solid var(--ach-accent);border-radius:var(--ach-radius);background:var(--ach-bg);padding:14px}
+  .slip h4{font-family:var(--serif);font-weight:600;font-size:17px;margin-bottom:6px}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;border-bottom:1px solid var(--ach-line)}.row:last-child{border-bottom:0}
+  .row .k{font-size:14px;color:var(--slate)}.row .v{font-family:var(--serif);font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:.02em;text-align:right;font-weight:600}
+  .row .v.big{font-size:24px;color:var(--deep)}
+  .copy{border:1px solid var(--ach-line);background:var(--white);border-radius:5px;font-size:12px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+  .copy[data-done="1"]{background:var(--ach-accent);color:#fff;border-color:var(--ach-accent)}
+  .steps2{margin:12px 0 0 20px;font-size:15px;max-width:60ch}.steps2 li{margin:5px 0}
+  .primary{margin-top:14px;width:100%;border:0;border-radius:7px;padding:12px;font-weight:600;font-size:16px;background:var(--ach-accent);color:#fff}
+  .ghost{margin-top:8px;width:100%;border:0;background:none;color:var(--slate);font-size:14px;padding:6px}
+  .done{text-align:center;padding:8px 0 4px}.done .mark{width:52px;height:52px;border-radius:50%;background:var(--ach-accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:8px}
+  .done h4{font-family:var(--serif);font-weight:600;font-size:21px}.done p{color:var(--slate);margin:6px auto 0;max-width:44ch}
+  .done .ord{font-family:var(--serif);font-size:28px;margin:10px 0 2px;letter-spacing:.03em;font-weight:600}
+  .foot{padding:10px 20px 12px;border-top:1px solid var(--ach-line);font-size:12.5px;color:var(--slate);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  @media(max-width:480px){.choice{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/">ACH<b>plug</b></a>
+    <nav><a href="#how">How</a><a href="#screens">Screens</a><a href="#buy">$25</a></nav>
+  </header>
+
+  <div class="hero">
+    <h1>Collect bank transfers on your website.</h1>
+    <p>A checkout box that lets a customer pay you straight from their bank — with a discount you set — instead of through a card processor. Works on WordPress or any site. Money lands in your account. Nobody in the middle.</p>
+    <a class="cta" href="#buy">Get the plugin <span>$25</span></a>
+  </div>
+
+  <section id="how">
+    <h2>Three steps</h2>
+    <ol class="steps">
+      <li><b>Install it.</b> WordPress: Plugins → Add New → Upload the zip → Activate. Any other site: paste one line of code where the box should go.</li>
+      <li><b>Enter your bank details and your discount.</b> Payee name, routing number, account number, and the discount — 0%, 2%, 5%, 30%, your call, changed any time. The same numbers printed on every cheque you have ever written: they let people pay you, not take from you.</li>
+      <li><b>Put the box on a page.</b> <code>[achplug name="What you sell" price="20"]</code> — that's it. A customer chooses card or bank, sees the slip, sends the money, presses <em>I've sent it</em>. You get an email, mark it paid when it lands, and they get their link.</li>
+    </ol>
+    <pre>&lt;!-- any non-WordPress site: one line --&gt;
+&lt;script src="https://achplug.com/plug.js" data-name="What you sell" data-price="20"&gt;&lt;/script&gt;</pre>
+  </section>
+
+  <section id="screens">
+    <h2>What your customer sees</h2>
+    <p class="lead">This is the real box, live. Press through it.</p>
+    <div class="ach">
+      <div class="ach-head"><h3>One filing read</h3><p>Any 8-K, 10-Q or exhibit, read into plain English.</p></div>
+      <div class="screen on" id="s1">
+        <div class="choice">
+          <div class="opt card"><small>Pay by card</small><div class="p">$20.00</div><small>Instant. Visa, Mastercard, Amex.</small><a class="go" href="#screens">Pay by card</a></div>
+          <div class="opt bank"><small>Pay from your bank</small><div class="p">$19.00</div><span class="was">$20.00</span><span class="save">You save 5%</span><button class="go" type="button" onclick="show(2)">Pay from my bank</button></div>
+        </div>
+        <details class="why"><summary>What is paying from my bank?</summary><p>You send the money straight from your bank account to ours, the same way you pay a utility bill. No card company sits in the middle taking a cut, which is why it costs less. We unlock your purchase the moment it arrives.</p></details>
+      </div>
+      <div class="screen" id="s2">
+        <div class="field"><label>Your name</label><input placeholder="As it appears on your bank account"></div>
+        <div class="field"><label>Email — we unlock your purchase here</label><input type="email" placeholder="you@example.com"></div>
+        <div class="slip"><h4>Send this from your bank</h4>
+          <div class="row"><span class="k">Amount</span><span class="v big">$19.00</span></div>
+          <div class="row"><span class="k">Pay to</span><span class="v">Your Business LLC</span></div>
+          <div class="row"><span class="k">Routing number</span><span class="v">021000021 <button class="copy" type="button" onclick="cp(this,'021000021')">Copy</button></span></div>
+          <div class="row"><span class="k">Account number</span><span class="v">•••• 4417 <button class="copy" type="button" onclick="cp(this,'4417')">Copy</button></span></div>
+          <div class="row"><span class="k">Memo / reference</span><span class="v"><span class="ref">8K-482913</span> <button class="copy" type="button" onclick="cp(this,'8K-482913')">Copy</button></span></div>
+        </div>
+        <ol class="steps2"><li>Open your bank's app or website.</li><li>Choose <em>Pay a bill</em> or <em>Send money to a business</em> and add us using the details above.</li><li>Put the reference in the memo so we can match it to you.</li><li>Send the amount, then come back and press the button below.</li></ol>
+        <button class="primary" type="button" onclick="show(3)">I've sent it</button><button class="ghost" type="button" onclick="show(1)">Back</button>
+      </div>
+      <div class="screen" id="s3">
+        <div class="done"><div class="mark">✓</div><h4>Thank you. We're watching for it.</h4><div class="ord">8K-482913</div><p>Keep this reference. When your transfer lands — usually 1 to 3 business days — we'll email your purchase to the address you gave. Nothing else to do.</p></div>
+        <button class="ghost" type="button" onclick="show(1)">Start over</button>
+      </div>
+      <div class="foot"><span>Questions? hello@yoursite.com</span><span>Pay-from-bank checkout by ACHplug</span></div>
+    </div>
+    <p class="lead" style="margin-top:12px">And in your dashboard: every order with its reference, the customer, the amount, and one button — <em>Mark paid &amp; email</em>. A red count on the menu tells you how many are waiting.</p>
+  </section>
+
+  <section id="fits">
+    <h2>It adapts to your site</h2>
+    <p class="lead">The box carries no font and no colours of its own. It takes your theme's type and text colour, and four variables set the accent, background, line and corner radius — the WordPress plugin reads them from your theme automatically. Same box, two different sites:</p>
+    <div class="fit">
+      <div class="demo-a">A bakery, serif theme, red accent
+        <div class="mini"><i>Pay from your bank</i><em>$38.00</em><s>$40.00</s> <i>save 5%</i><u>Pay from my bank</u></div></div>
+      <div class="demo-b">A software shop, dark theme, blue accent
+        <div class="mini"><i>Pay from your bank</i><em>$97.00</em><s>$100.00</s> <i>save 3%</i><u>Pay from my bank</u></div></div>
+    </div>
+  </section>
+
+  <section id="why">
+    <h2>Why bank transfer</h2>
+    <div class="two">
+      <div><b>It costs you nothing.</b><p>A card processor takes about 3% and 30¢ of every sale. A bank transfer takes nothing. Pass some of that to the customer and they will choose it.</p></div>
+      <div><b>Nobody can freeze it.</b><p>A processor can hold your money for weeks on a complaint you never see. A transfer to your own bank account is yours the day it lands.</p></div>
+      <div><b>No customer bank details.</b><p>The customer pays you. You never pull from them, so you never store their account number.</p></div>
+      <div><b>Nothing leaves your site.</b><p>Orders live in your own WordPress database. ACHplug has no server in the loop and sees none of your sales.</p></div>
+    </div>
+  </section>
+
+  <section id="buy">
+    <h2>Get the plugin</h2>
+    <div class="price">
+      <div class="big">$25 <small>once. Yours to keep.</small></div>
+      <ul><li>WordPress plugin zip, and the one-line version for any other site</li><li>Updates for a year</li><li>Email support from a person</li></ul>
+      <!-- the buy box is ACHplug itself: card or bank, a real demonstration -->
+      <div class="ach" id="buybox">
+        <div class="ach-head"><h3>ACHplug</h3><p>WordPress plugin + one-line version. Sent to your email.</p></div>
+        <div class="screen on">
+          <div class="choice">
+            <div class="opt card"><small>Pay by card</small><div class="p">$25.00</div><small>Instant.</small><a class="go" href="[CARD PAYMENT LINK]">Pay by card</a></div>
+            <div class="opt bank"><small>Pay from your bank</small><div class="p">$23.75</div><span class="was">$25.00</span><span class="save">You save 5%</span><a class="go" href="[BANK CHECKOUT PAGE]">Pay from my bank</a></div>
+          </div>
+        </div>
+        <div class="foot"><span>Questions? [PUBLISHED EMAIL]</span><span>Pay-from-bank checkout by ACHplug</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>ACHplug is a product of [ENTITY]. &nbsp;·&nbsp; <a href="mailto:[PUBLISHED EMAIL]">[PUBLISHED EMAIL]</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
+</div>
+<script>
+  function show(n){[1,2,3].forEach(k=>document.getElementById('s'+k).classList.toggle('on',k===n));document.getElementById('screens').scrollIntoView({block:'start'});}
+  function cp(b,t){navigator.clipboard&&navigator.clipboard.writeText(t);b.dataset.done=1;b.textContent='Copied';setTimeout(()=>{b.dataset.done=0;b.textContent='Copy'},1500);}
+</script>
+</body>
+</html>
