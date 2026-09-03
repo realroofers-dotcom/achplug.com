@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACHplug for WordPress — how to set it up (animated)</title>
+<!-- achplug how-to animation 1a, 3 Sep 2026. Single file. Frames are WordPress-styled mockups of the real screens. -->
+<style>
+  :root{--wp:#1d2327;--wpblue:#2271b1;--green:#1E6B4E;--paper:#F7F9F6;--line:#C9D4CE;--ink:#17251F;--slate:#5F6F68}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);padding:18px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-family:Georgia,serif;font-weight:600;font-size:24px;margin-bottom:4px}
+  .sub{color:var(--slate);font-size:14px;margin-bottom:12px}
+  .stage{position:relative;background:#f0f0f1;border:1px solid #c3c4c7;border-radius:10px;overflow:hidden;height:520px}
+  .frame{position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none}
+  .frame.on{opacity:1;pointer-events:auto}
+  .cap{position:absolute;left:0;right:0;bottom:0;background:rgba(23,37,31,.92);color:#fff;padding:12px 18px;font-size:15px;line-height:1.4}
+  .cap b{color:#9cc7b1}
+  .ctl{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .ctl button{font:inherit;font-weight:600;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;cursor:pointer}
+  .ctl button.primary{background:var(--green);color:#fff;border-color:var(--green)}
+  .dots{display:flex;gap:6px;margin-left:auto}.dots span{width:10px;height:10px;border-radius:50%;background:#c3c4c7;cursor:pointer}.dots span.on{background:var(--green)}
+  .bar{height:4px;background:var(--green);width:0;transition:width linear}
+  /* wp-admin mock */
+  .wpbar{height:32px;background:var(--wp);color:#fff;font-size:13px;display:flex;align-items:center;padding:0 12px;gap:18px}
+  .wpside{position:absolute;left:0;top:32px;bottom:0;width:160px;background:#1d2327;color:#f0f0f1;font-size:13px;padding-top:10px}
+  .wpside div{padding:8px 12px}.wpside div.on{background:var(--wpblue);color:#fff}.wpside .sub2{padding-left:24px;font-size:12px;color:#c3c4c7}
+  .wpmain{position:absolute;left:160px;top:32px;right:0;bottom:0;padding:18px 22px;overflow:hidden;background:#f0f0f1}
+  .wpmain h2{font-size:22px;font-weight:400;margin-bottom:10px}
+  .btn{display:inline-block;background:var(--wpblue);color:#fff;border-radius:3px;padding:6px 12px;font-size:13px}
+  .btn.o{background:#fff;color:var(--wpblue);border:1px solid var(--wpblue)}
+  .box{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:14px;margin-top:10px;font-size:13px}
+  .gbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ccd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px}
+  .gbar b{font-family:Georgia,serif;font-size:18px}.gbar b i{color:var(--green);font-style:normal}
+  .gbar span{border:1px solid #ccd;border-radius:16px;padding:4px 10px;background:var(--paper)}.gbar span.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .field{margin-top:8px;font-size:13px}.field label{display:block;color:#50575e;margin-bottom:3px}.field input{width:100%;max-width:420px;border:1px solid #8c8f94;border-radius:4px;padding:6px 8px;font:inherit;font-size:13px;background:#fff}
+  .tiles{display:flex;gap:8px;margin-top:6px}.tile{flex:1;border:1.5px solid #ccd;border-radius:8px;padding:8px 10px 8px 30px;position:relative;font-size:12px;background:#fff}.tile.on{border-color:var(--green);background:#eef5f1}.tile::before{content:"";position:absolute;left:10px;top:11px;width:12px;height:12px;border-radius:50%;border:2px solid #8c8f94}.tile.on::before{border-color:var(--green);background:var(--green)}
+  .tile b{display:block;font-size:13px}
+  /* editor mock */
+  .ed{position:absolute;inset:32px 0 0 0;background:#fff}
+  .edbar{height:48px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 14px;gap:10px}
+  .plus{width:28px;height:28px;border-radius:4px;background:var(--wp);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:20px}
+  .edbody{padding:40px 80px;font-size:15px}
+  .edbody h3{font-size:34px;font-weight:400;margin-bottom:18px}
+  .inserter{position:absolute;left:100px;top:180px;width:300px;background:#fff;border:1px solid #ddd;box-shadow:0 4px 20px rgba(0,0,0,.15);border-radius:4px;padding:10px;font-size:13px}
+  .inserter input{width:100%;border:1px solid #949494;border-radius:2px;padding:6px 8px;font:inherit}
+  .inserter .it{display:flex;align-items:center;gap:8px;margin-top:10px;padding:6px;border-radius:4px;background:#f0f6fc}
+  .panel{position:absolute;right:0;top:48px;bottom:0;width:260px;border-left:1px solid #ddd;background:#fff;padding:14px;font-size:13px}
+  .panel input{width:100%;border:1px solid #949494;border-radius:2px;padding:5px 8px;font:inherit;margin:4px 0 10px}
+  .pv{border:1.5px solid var(--green);border-radius:10px;padding:14px;background:var(--paper);margin-top:8px;max-width:520px}
+  /* site box mock */
+  .site{position:absolute;inset:0;background:#fff;padding:30px 60px;font-family:Georgia,serif}
+  .achbox{border:1px solid var(--line);border-radius:12px;max-width:560px;overflow:hidden}
+  .achbox .hd{padding:14px 16px 4px;font-weight:600;font-size:18px}
+  .ch{display:flex;gap:10px;padding:8px 16px 14px}.opt{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:12px;font-family:system-ui,sans-serif}.opt.bank{border-color:var(--green);background:var(--paper)}.opt .p{font-family:Georgia,serif;font-size:26px;font-weight:600}.opt .go{display:block;text-align:center;border-radius:6px;padding:7px;color:#fff;font-weight:600;margin-top:8px;background:#222}.opt.bank .go{background:var(--green)}
+  .form{padding:8px 16px 14px;font-family:system-ui,sans-serif;font-size:12px}.form .f{margin-top:6px}.form .f span{display:block;color:var(--slate)}.form .f div{border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;background:#fff}
+  .agree{display:flex;gap:6px;margin-top:8px;font-size:11.5px;align-items:flex-start}.agree i{display:inline-block;width:12px;height:12px;border:1.5px solid var(--green);border-radius:3px;background:var(--green);flex:none;margin-top:2px}
+  .buy{display:block;text-align:center;background:var(--green);color:#fff;border-radius:6px;padding:9px;font-weight:600;margin-top:10px}
+  .pointer{position:absolute;width:22px;height:22px;pointer-events:none;transition:all .8s cubic-bezier(.4,0,.2,1)}
+  .pointer::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(232,163,61,.35);border:2px solid #E8A33D;animation:pulse 1.2s infinite}
+  @keyframes pulse{0%{transform:scale(.8)}50%{transform:scale(1.25)}100%{transform:scale(.8)}}
+  table.t{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #c3c4c7;margin-top:8px}table.t th,table.t td{padding:7px 9px;border-bottom:1px solid #eee;text-align:left}
+  .green{color:var(--green);font-weight:600}.amber{color:#b45309;font-weight:600}
+  @media(max-width:700px){.stage{height:600px}.edbody{padding:20px}.site{padding:16px}.wpside{display:none}.wpmain{left:0}.panel{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ACHplug for WordPress — set it up in nine steps</h1>
+  <p class="sub">Plays by itself. Press a dot to jump, or Pause to read. About 90 seconds.</p>
+  <div class="stage" id="stage">
+
+    <!-- 1 Upload -->
+    <div class="frame on">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="wpside"><div>Dashboard</div><div>Posts</div><div>Pages</div><div class="on">Plugins</div><div class="sub2">Installed Plugins</div><div class="sub2" style="color:#fff">Add Plugin</div><div>Settings</div></div>
+      <div class="wpmain"><h2>Add Plugins <span class="btn o" id="p1">Upload Plugin</span></h2><div class="box">If you have a plugin in a .zip format, you may install it by uploading it here.<br><br><span class="btn o">Choose File</span> &nbsp; achplug-plugin-2e-2026-09-03.zip &nbsp; <span class="btn">Install Now</span></div><div class="box" style="margin-top:14px">Installing Plugin from uploaded file… <b>Plugin installed successfully.</b> &nbsp; <span class="btn">Activate Plugin</span></div></div>
+      <div class="cap"><b>1 · Install.</b> Plugins → Add Plugin → Upload Plugin → choose the ACHplug zip → Install Now → Activate. It takes you straight to Getting started.</div>
+    </div>
+
+    <!-- 2 Getting started -->
+    <div class="frame">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="wpside"><div>Dashboard</div><div>Pages</div><div class="on">🌳 ACHplug</div><div class="sub2">Dashboard</div><div class="sub2">Collect</div><div class="sub2">Sales Journal</div><div class="sub2">Settings</div><div class="sub2" style="color:#fff">Getting started</div><div class="sub2">Features</div></div>
+      <div class="wpmain"><div class="gbar"><b>ACH<i>plug</i></b><span>Dashboard</span><span>Collect</span><span>Sales Journal</span><span>Settings</span><span class="on">Getting started</span><span style="color:var(--green);border-color:var(--green)">Features</span></div><h2 style="font-family:Georgia,serif">Getting started with ACHplug</h2><div class="box" style="border-left:4px solid var(--green)"><b>1. Settings — who you are and where the money goes</b><br>Your payee name, address, discount, repeats.</div><div class="box" style="border-left:4px solid var(--green)"><b>2. Settings — what your bank needs to collect</b><br>Company ID (EIN) and origination routing number.</div><div class="box" style="border-left:4px solid var(--green)"><b>3. Put the box on a page</b><br>Press +, search ACHplug, drag the block in.</div></div>
+      <div class="cap"><b>2 · Getting started.</b> Three steps, on one page. The green bar at the top is on every ACHplug screen — Dashboard, Collect, Sales Journal, Settings, Features.</div>
+    </div>
+
+    <!-- 3 Settings who you are -->
+    <div class="frame">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="wpside"><div>Dashboard</div><div>Pages</div><div class="on">🌳 ACHplug</div><div class="sub2">Dashboard</div><div class="sub2">Collect</div><div class="sub2">Sales Journal</div><div class="sub2" style="color:#fff">Settings</div><div class="sub2">Getting started</div></div>
+      <div class="wpmain"><div class="gbar"><b>ACH<i>plug</i></b><span>Dashboard</span><span>Collect</span><span>Sales Journal</span><span class="on">Settings</span><span>Getting started</span></div><h2 style="font-family:Georgia,serif;font-size:18px">1. What is this box for?</h2><div class="tiles"><div class="tile on"><b>Selling something</b>The customer pays a price. You can give a discount.</div><div class="tile"><b>Taking donations</b>Donor picks the amount. Receipt carries your tax ID.</div></div><h2 style="font-family:Georgia,serif;font-size:18px;margin-top:14px">2. Who you are</h2><div class="field"><label>Pay to — your legal name, exactly as your bank has it</label><input value="Jersey Shore Constllc"></div><div class="field"><label>Your business address</label><input value="377 Valley Rd, Clifton NJ 07013"></div><div class="field"><label>Your email — new payments and questions come here</label><input value="you@yourbusiness.com"></div></div>
+      <div class="cap"><b>3 · Settings — who you are.</b> Selling or donations. Your legal name exactly as your bank has it, your address, your email. These print on the customer's confirmation.</div>
+    </div>
+
+    <!-- 4 Settings offer + repeats -->
+    <div class="frame">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="wpside"><div>Dashboard</div><div>Pages</div><div class="on">🌳 ACHplug</div><div class="sub2" style="color:#fff">Settings</div></div>
+      <div class="wpmain"><div class="gbar"><b>ACH<i>plug</i></b><span>Dashboard</span><span>Collect</span><span>Sales Journal</span><span class="on">Settings</span></div><h2 style="font-family:Georgia,serif;font-size:18px">3. The offer</h2><div class="field"><label>Discount for paying by bank, % — 0 to 90, any number</label><input value="5"></div><div class="field"><label>Order number prefix — two or three letters that mean something to you</label><input value="JS"></div><h2 style="font-family:Georgia,serif;font-size:18px;margin-top:14px">4. Repeating payments</h2><div class="tile on" style="max-width:520px"><b>Let customers select "repeat this payment"</b>Weekly, monthly or yearly — until they stop it, for a number of payments, or until a date. Each period appears on Collect by itself.</div></div>
+      <div class="cap"><b>4 · Settings — the offer.</b> Your discount for paying by bank — 0 to 90, your call. A prefix for order numbers. And whether customers may set up repeating payments: a contract in twelve payments, a monthly service, a monthly gift.</div>
+    </div>
+
+    <!-- 5 Settings 5 & 6 -->
+    <div class="frame">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="wpside"><div>Dashboard</div><div>Pages</div><div class="on">🌳 ACHplug</div><div class="sub2" style="color:#fff">Settings</div></div>
+      <div class="wpmain"><div class="gbar"><b>ACH<i>plug</i></b><span>Dashboard</span><span>Collect</span><span>Sales Journal</span><span class="on">Settings</span></div><h2 style="font-family:Georgia,serif;font-size:18px">5. How the money is collected</h2><div class="tiles"><div class="tile on"><b>Customer enters their bank details and approves</b>Your bank collects it from a file ACHplug builds.</div><div class="tile"><b>Customer sends it from their bank</b>The box shows your account; they send it.</div></div><h2 style="font-family:Georgia,serif;font-size:18px;margin-top:14px">6. Collecting — what your bank needs in the file</h2><div class="field"><label>Company ID — your EIN, or the originator ID your bank assigned</label><input value="12-3456789"></div><div class="field"><label>Routing number your bank uses for ACH origination</label><input value="256074974"></div><p style="font-size:12px;color:var(--slate);margin-top:8px">What to say to your bank, word for word: achplug.com/help-collect</p><span class="btn" style="margin-top:10px">SAVE</span></div>
+      <div class="cap"><b>5 · Settings — your bank.</b> Leave section 5 on the first choice. Section 6 is the two things your bank needs in every file: your Company ID, usually your EIN, and the routing number they use for ACH origination. One phone call gets both. Save.</div>
+    </div>
+
+    <!-- 6 Block -->
+    <div class="frame">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="ed"><div class="edbar"><span class="plus" id="p6">+</span> <span style="color:#757575">↶ ↷</span><span style="margin-left:auto;color:var(--wpblue)">Save draft</span> <span class="btn">Publish</span></div>
+        <div class="edbody"><h3>Book a roof inspection</h3><p style="color:#757575">Type / to choose a block</p></div>
+        <div class="inserter"><input value="ACHplug"><div class="it"><svg viewBox="0 0 64 64" width="26" height="26"><circle cx="32" cy="24" r="17" fill="#1E6B4E"/><circle cx="19" cy="30" r="10" fill="#1E6B4E"/><circle cx="45" cy="30" r="10" fill="#1E6B4E"/><path d="M29 38h6v14a3 3 0 0 1-6 0z" fill="#8a5a2b"/><circle cx="40" cy="43" r="7.5" fill="#E8A33D"/></svg><span>ACHplug — pay from your bank</span></div></div>
+        <div class="panel"><b>What are you selling?</b><label>Name</label><input value="Roof inspection deposit"><label>Price in dollars</label><input value="500"><label>One line about it</label><input value="Holds your date. Applied to the job."></div></div>
+      <div class="cap"><b>6 · Put the box on a page.</b> Pages → Add New. Press the blue <b>+</b>, type ACHplug, click the tree. In the panel on the right: what you sell and the price. Publish. (Or paste the shortcode <b>[achplug name="…" price="…"]</b> — same thing.)</div>
+    </div>
+
+    <!-- 7 Live box -->
+    <div class="frame">
+      <div class="site"><h3 style="font-weight:600;font-size:26px;margin-bottom:12px">Book a roof inspection</h3>
+        <div class="achbox"><div class="hd">Roof inspection deposit<div style="font-size:13px;color:var(--slate);font-weight:400;font-family:system-ui,sans-serif">Holds your date. Applied to the job.</div></div>
+        <div class="ch"><div class="opt"><small>Pay by card</small><div class="p">$500.00</div><small>Instant.</small><span class="go">Pay by card</span></div><div class="opt bank"><small>Pay from your bank</small><div class="p">$475.00</div><small><s>$500.00</s> <b style="color:var(--green)">You save 5%</b></small><span class="go" id="p7">Pay from my bank</span></div></div></div></div>
+      <div class="cap"><b>7 · What your customer sees.</b> Card price and bank price side by side, your discount already worked out. They press Pay from my bank.</div>
+    </div>
+
+    <!-- 8 Form -->
+    <div class="frame">
+      <div class="site"><div class="achbox"><div class="hd">Roof inspection deposit</div>
+        <div class="form"><div class="f"><span>Your name</span><div>Maria Lopez</div></div><div class="f"><span>Email — your receipt goes here</span><div>maria@example.com</div></div>
+          <div style="border:1.5px solid var(--green);border-radius:8px;padding:8px;margin-top:8px;background:var(--paper)"><b>Your bank account</b><div class="f"><span>Routing number (9 digits)</span><div>021000021</div><small style="color:var(--green)">JPMORGAN CHASE, TAMPA FL</small></div><div class="f"><span>Account number</span><div>•••••• 6789</div></div></div>
+          <div style="border:1.5px dashed var(--line);border-radius:8px;padding:8px;margin-top:8px"><b>☑ Repeat this payment</b> every month · ◉ for 12 payments</div>
+          <div class="agree"><i></i><span>I authorize <b>Jersey Shore Constllc</b> to collect <b>$475.00</b> from this account, and each repeat, and I understand I can revoke this any time from the link in my email.</span></div>
+          <span class="buy" id="p8">Buy — $475.00</span></div></div></div>
+      <div class="cap"><b>8 · The customer's form.</b> Name, email, routing number — their bank's name appears as they type — account number. Repeat every month for 12 payments, if you allowed it. One sentence of authorization. Buy. They get a confirmation on screen and by email.</div>
+    </div>
+
+    <!-- 9 Collect -->
+    <div class="frame">
+      <div class="wpbar">⌂ My Site &nbsp; + New</div>
+      <div class="wpside"><div>Dashboard</div><div>Pages</div><div class="on">🌳 ACHplug</div><div class="sub2">Dashboard</div><div class="sub2" style="color:#fff">Collect</div><div class="sub2">Sales Journal</div></div>
+      <div class="wpmain"><div class="gbar"><b>ACH<i>plug</i></b><span>Dashboard</span><span class="on">Collect</span><span>Sales Journal</span><span>Settings</span></div><h2 style="font-family:Georgia,serif">Collect</h2><p style="font-size:13px">Ready to collect (1) · $475.00</p><table class="t"><tr><th>Ref</th><th>Customer</th><th>Bank</th><th>Amount</th></tr><tr><td>JS-482913</td><td>Maria Lopez</td><td>JPMORGAN CHASE ····6789</td><td>$475.00</td></tr></table><p style="margin-top:12px"><span class="btn" style="background:var(--green)" id="p9">Download bank file (1 payment, $475.00)</span> &nbsp; <span class="btn o">I uploaded it — mark all as sent to bank</span></p><p style="font-size:13px;margin-top:14px"><b>Sent to bank — waiting to clear</b></p><table class="t"><tr><th>Ref</th><th>Customer</th><th>Amount</th><th></th></tr><tr><td>JS-118204</td><td>Tom Reilly</td><td>$500.00</td><td><span class="btn" style="padding:3px 8px">Received</span> <span class="btn o" style="padding:3px 8px">Returned</span></td></tr></table></div>
+      <div class="cap"><b>9 · Your one job — Collect.</b> Download the bank file. Upload it on your bank's ACH origination page. Press "I uploaded it." When the money lands in your account, press Received — the customer gets their receipt and it goes into the Sales Journal. One minute a day.</div>
+    </div>
+
+    <div class="pointer" id="ptr" style="left:40%;top:30%"></div>
+  </div>
+  <div class="bar" id="bar"></div>
+  <div class="ctl"><button id="prev">‹ Back</button><button id="play" class="primary">Pause</button><button id="next">Next ›</button><div class="dots" id="dots"></div></div>
+</div>
+<script>
+(function(){
+  var frames=[].slice.call(document.querySelectorAll('.frame')),i=0,t=null,playing=true,DUR=9000;
+  var ptr=document.getElementById('ptr'),bar=document.getElementById('bar'),dots=document.getElementById('dots');
+  var targets={0:'p1',5:'p6',6:'p7',7:'p8',8:'p9'};
+  frames.forEach(function(_,k){var d=document.createElement('span');d.addEventListener('click',function(){go(k);});dots.appendChild(d);});
+  function point(k){var id=targets[k];var st=document.getElementById('stage').getBoundingClientRect();if(id){var el=document.getElementById(id);var r=el.getBoundingClientRect();ptr.style.left=(r.left-st.left+r.width/2-11)+'px';ptr.style.top=(r.top-st.top+r.height/2-11)+'px';ptr.style.opacity=1;}else ptr.style.opacity=0;}
+  function go(k){i=(k+frames.length)%frames.length;frames.forEach(function(f,j){f.classList.toggle('on',j===i);});[].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i);});setTimeout(function(){point(i);},60);bar.style.transition='none';bar.style.width='0';if(playing){setTimeout(function(){bar.style.transition='width '+DUR+'ms linear';bar.style.width='100%';},30);}clearTimeout(t);if(playing)t=setTimeout(function(){go(i+1);},DUR);}
+  document.getElementById('next').onclick=function(){go(i+1);};document.getElementById('prev').onclick=function(){go(i-1);};
+  document.getElementById('play').onclick=function(){playing=!playing;this.textContent=playing?'Pause':'Play';go(i);};
+  window.addEventListener('resize',function(){point(i);});go(0);
+})();
+</script>
+</body>
+</html>
