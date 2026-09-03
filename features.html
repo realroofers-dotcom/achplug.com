@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ACHplug — Features</title>
-<!-- achplug-site 1e, 2 Sep 2026: features page (1f: footer credit and contact). The screens below are the real pages rendered from the worker code with sample data. -->
+<!-- achplug-site 2a, 3 Sep 2026: features page for pull mode; dashboard; screens from the live code. -->
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{--paper:#F7F9F6;--ink:#17251F;--green:#1E6B4E;--deep:#144A36;--mist:#E6ECE8;--slate:#5F6F68;--line:#C9D4CE;--white:#fff;
@@ -111,50 +111,62 @@
 <div class="wrap">
   <header>
     <a class="logo" href="/">ACH<b>plug</b></a>
-    <nav><a href="/#how">How</a><a href="/#screens">Screens</a><a href="/features.html">Features</a><a href="/#buy">Get it</a></nav>
+    <nav><a href="/#how">How</a><a href="/#screens">Screens</a><a href="/features.html">Features</a><a href="/help-collect.html">Bank setup</a><a href="/#buy">Get it</a></nav>
   </header>
 
   <div class="hero" style="padding-bottom:10px">
     <h1>What you get.</h1>
     <p>Every screen below is the real thing, rendered with sample orders. Nothing is mocked up.</p>
-    <div class="toc"><a href="#box">The checkout box</a><a href="#desk">Your desk</a><a href="#register">Sales register</a><a href="#verify">Bank check</a><a href="#emails">Receipts &amp; emails</a><a href="#donate">Donations</a><a href="#fits">Fits your site</a></div>
+    <div class="toc"><a href="#box">The checkout box</a><a href="#collect">Collect</a><a href="#desk">Your dashboard</a><a href="#register">Sales Journal</a><a href="#recur">Recurring</a><a href="#verify">Bank check</a><a href="#emails">Receipts &amp; emails</a><a href="#donate">Donations</a><a href="#fits">Fits your site</a></div>
   </div>
 
   <section class="feat" id="box">
     <h2>The checkout box</h2>
-    <p>Two prices side by side — the card price and the bank price with your discount already worked out. Pick the bank and the customer gets a slip with your payee name, routing and account number, an order reference, Copy buttons, and four plain steps for their banking app. They press <em>I've sent it</em>. That is the whole customer experience.</p>
-    <ul><li>Discount is yours to set: 0%, 2%, 5%, 30%, changed any time</li><li>Optional card button linking to any checkout you already have</li><li>No customer bank details are ever collected — they pay you, you never pull from them</li></ul>
-    <p><a href="/#screens">Try it live on the front page →</a></p>
+    <p>Card price and bank price side by side, your discount worked out — 0 to 90%, your call. The customer presses Pay from my bank, enters their routing and account number (their bank's name appears as they type), approves in one sentence, presses Buy. Under two minutes, on your page.</p>
+    <div class="shot tall"><iframe src="shots/form.html" title="The form" loading="lazy"></iframe><div class="cap">The form, with the repeat panel open and the authorization sentence.</div></div>
+    <ul><li>Optional card button linking to any checkout you already have</li><li>Account numbers encrypted on arrival; you see the last four</li><li>Every word the customer sees is editable in Premium</li></ul>
+  </section>
+
+  <section class="feat" id="collect">
+    <h2>Collect — your one job</h2>
+    <p>Approved payments wait here. Download one bank file, upload it to your bank's ACH origination page, press "mark as sent." When the money shows in your account, press Received — the customer gets their receipt and the payment moves to the journal. Every morning there is something to collect, the file and the links come to you by email.</p>
+    <div class="shot"><iframe src="shots/collect.html" title="Collect" loading="lazy"></iframe><div class="cap">Two ready to collect, one sent and waiting to clear.</div></div>
+    <p>Setting this up with your bank is one phone call — <a href="/help-collect.html">the words to use are here</a>. An <a href="/automatic.html">Automatic</a> option is coming for sellers who want no upload at all.</p>
   </section>
 
   <section class="feat" id="desk">
-    <h2>Your desk</h2>
-    <p>Where the work happens. Your code to paste is at the top. Under it, only the orders still waiting for money — each with a Mark received button that emails the customer their receipt and link. Paid orders leave the desk so it never crowds.</p>
-    <div class="shot"><iframe src="shots/desk.html" title="The desk" loading="lazy"></iframe><div class="cap">The desk with two orders waiting. The red count follows you on the menu.</div></div>
+    <h2>Your dashboard</h2>
+    <p>Your code to paste at the top. What's ready to collect. Repeating payments and their status. Settings underneath. The header bar — Dashboard · Collect · Sales Journal · Settings · Help — is on every page.</p>
+    <div class="shot"><iframe src="shots/dashboard.html" title="The dashboard" loading="lazy"></iframe><div class="cap">The dashboard with a repeating payment three months in.</div></div>
   </section>
 
   <section class="feat" id="register">
-    <h2>Sales register</h2>
-    <p>Every invoice you have ever taken, on one report page: paid all time, awaiting, the card fees you did not pay, totals by month and by product, then the invoices themselves under Unpaid / Paid / All tabs with a search box. Download the lot as CSV for your accountant.</p>
-    <div class="shot tall"><iframe src="shots/register.html" title="Sales register" loading="lazy"></iframe><div class="cap">The register with seven sample orders, opened on the Unpaid tab.</div></div>
+    <h2>Sales Journal — ACH payments</h2>
+    <p>Last 7 days, this month, this year, all time. The card fees you did not pay. Totals by month and by product. Then every invoice under Unpaid / Paid / All with search, and a CSV for your accountant.</p>
+    <div class="shot tall"><iframe src="shots/journal.html" title="Sales Journal" loading="lazy"></iframe><div class="cap">The journal with sample payments, opened on Unpaid.</div></div>
+  </section>
+
+  <section class="feat" id="recur">
+    <h2>Recurring — a contract paid off, or a service kept up</h2>
+    <p>Switch it on and the customer can choose to repeat: every week, month or year — until they stop it, for a set number of payments, or until a date. They approve once. Each period the next payment appears on Collect by itself, the customer is told it is coming, and every email carries their Pause / Stop link. Nothing is ever collected that they did not approve, and they can end it without calling anyone.</p>
   </section>
 
   <section class="feat" id="verify">
     <h2>Your routing number is checked against the Federal Reserve directory</h2>
-    <p>A mistyped routing number means a customer's money goes nowhere. So when you save, the number is looked up in the Federal Reserve ACH directory — 18,000 banks and credit unions — and the bank's name is filled in for you. A number that is not in the directory is refused, and the desk tells you why.</p>
+    <p>A mistyped routing number means a customer's money goes nowhere. So when you save, the number is looked up in the Federal Reserve ACH directory — 18,000 banks and credit unions — and the bank’s name is filled in for you. A number that is not in the directory is refused, and the dashboard tells you why. The same check runs on your customers’ routing numbers as they type.</p>
     <div class="shot short"><iframe src="shots/rejected.html" title="Rejected routing number" loading="lazy"></iframe><div class="cap">What a wrong number gets.</div></div>
-    <div class="shot"><iframe src="shots/settings.html" title="Settings" loading="lazy"></iframe><div class="cap">Settings: sale or donation, then where the money goes. The bank name came from the directory.</div></div>
+    <div class="shot"><iframe src="shots/settings.html" title="Settings" loading="lazy"></iframe><div class="cap">Settings 5 to 7: how the money is collected, what your bank needs, repeating payments.</div></div>
   </section>
 
   <section class="feat" id="emails">
     <h2>Two emails, your words</h2>
-    <p>The customer gets one the moment they press <em>I've sent it</em> — the amount, the reference, your bank details again — and a receipt when you mark the money received. Standard wording is already in each box; press Edit to make it yours. Replies come to your address.</p>
-    <div class="shot short" style="--h:300px"><iframe src="shots/emails.html" title="Email templates" loading="lazy" style="height:340px"></iframe><div class="cap">The receipt template in donation mode, with the tax line.</div></div>
+    <p>The customer gets a confirmation the moment they press Buy — who they paid, how much, from which account, and their authorization for their records — and a receipt when you press Received. Both reply to your address. Standard wording is in each box; press Edit to make it yours.</p>
+    <div class="shot tall"><iframe src="shots/emails.html" title="The two emails" loading="lazy"></iframe><div class="cap">The confirmation and the receipt.</div></div>
   </section>
 
   <section class="feat" id="donate">
     <h2>Donations</h2>
-    <p>Tick <em>Taking donations</em> and the box changes: no discount, the donor picks an amount from your suggested list or types their own, the wording becomes "give from your bank — no card fees taken, 100% arrives," and the receipt carries your tax ID and the line the IRS wants on a donation acknowledgment. Built for nonprofits, churches, and anyone raising money.</p>
+    <p>Select <em>Taking donations</em> and the box changes: no discount, the donor picks an amount from your suggested list or types their own, the wording becomes "give from your bank — no card fees taken, 100% arrives," and the receipt carries your tax ID and the line the IRS wants on a donation acknowledgment. Built for nonprofits, churches, and anyone raising money.</p>
   </section>
 
   <section class="feat" id="fits">
@@ -165,11 +177,11 @@
 
   <section class="feat">
     <h2>$25, once</h2>
-    <p>Both versions — the WordPress plugin, or the one line of code and a desk here for any other site. Updates for a year, email support from a person.</p>
+    <p>Both versions — the WordPress plugin, or the one line of code and a dashboard here for any other site. Updates for a year, email support from a person.</p>
     <p><a class="cta" href="/#buy">Get ACHplug <span>$25</span></a></p>
   </section>
 
-  <footer>Created by Mark Nejmeh, a small business person just like you. &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
+  <footer>Created by Mark Nejmeh, a small business person just like you. &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/help-collect.html">Bank setup</a> · <a href="/automatic.html">Automatic</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
 </div>
 <script src="https://adhotbox.com/box.js" data-auto data-not=".shot, .feat#box, pre"></script>
 </body>

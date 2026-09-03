@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ACHplug — collect bank transfers on your website</title>
+<title>ACHplug — take bank payments on your website, no card processor</title>
 <!-- achplug-site 1b, 2 Sep 2026: AdHotBox placements added -->
 <!-- 1c: two ways to use it, WordPress or any site, made explicit top to bottom -->
 <!-- 1d: works-with strip added under the hero -->
 <!-- 1e: Features link in nav -->
 <!-- 1f: footer credit and contact -->
-<meta name="description" content="A checkout box that lets customers pay you straight from their bank, with a discount you set. WordPress plugin or one line of code. $25.">
+<!-- 2a, 3 Sep 2026: pull mode — customer approves, seller's bank collects; dashboard; links to help-collect and automatic -->
+<meta name="description" content="Your customer enters their bank details and approves. Your own bank collects it. No card processor, no percentage. WordPress plugin or one line of code. $25.">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{--paper:#F7F9F6;--ink:#17251F;--green:#1E6B4E;--deep:#144A36;--mist:#E6ECE8;--slate:#5F6F68;--line:#C9D4CE;--white:#fff;
@@ -103,12 +104,12 @@
 <div class="wrap">
   <header>
     <a class="logo" href="/">ACH<b>plug</b></a>
-    <nav><a href="#how">How</a><a href="#screens">Screens</a><a href="/features.html">Features</a><a href="#buy">Get it</a></nav>
+    <nav><a href="#how">How</a><a href="#screens">Screens</a><a href="/features.html">Features</a><a href="/help-collect.html">Bank setup</a><a href="#buy">Get it</a></nav>
   </header>
 
   <div class="hero">
-    <h1>Collect bank transfers on any website.</h1>
-    <p>A checkout box that lets a customer pay you straight from their bank — with a discount you set — instead of through a card processor. Money lands in your account. Nobody in the middle.</p>
+    <h1>Take bank payments on any website. No card processor.</h1>
+    <p>A checkout box where your customer enters their bank details and approves the payment — one time or repeating. Your own bank collects it. No processor, no percentage, nobody who can hold your money. Give a discount for it if you like — 0 to 90%.</p>
     <p style="margin-top:10px;font-weight:600">Two ways to use it, same price, same box:</p>
     <div class="two" style="margin-top:10px">
       <div><b>WordPress</b><p>A plugin. Upload, activate, enter your bank details, put a shortcode on a page.</p></div>
@@ -128,8 +129,8 @@
     <h2>Three steps</h2>
     <ol class="steps">
       <li><b>Install it.</b> WordPress: Plugins → Add New → Upload the zip → Activate. Any other site: paste one line of code where the box should go.</li>
-      <li><b>Enter your bank details and your discount.</b> Payee name, routing number, account number, and the discount — 0%, 2%, 5%, 30%, your call, changed any time. The same numbers printed on every cheque you have ever written: they let people pay you, not take from you.</li>
-      <li><b>Put the box on a page.</b> WordPress: <code>[achplug name="What you sell" price="20"]</code>. Any other site: the one line below. That's it. A customer chooses card or bank, sees the slip, sends the money, presses <em>I've sent it</em>. You get an email, mark it paid when it lands, and they get their link.</li>
+      <li><b>Enter where the money goes, and your discount.</b> Payee name, routing number (checked against the Federal Reserve directory), account number, and the discount — 0 to 90%, changed any time. Then the two things your bank needs to collect for you; <a href="/help-collect.html">here is exactly what to ask them</a>.</li>
+      <li><b>Put the box on a page.</b> WordPress: <code>[achplug name="What you sell" price="20"]</code>. Any other site: the one line below. That's it. A customer chooses bank, enters their routing and account number, approves, presses Buy. It appears on your Collect page; you download one file, upload it to your bank, and the money lands in your account. Press Received and they get their receipt.</li>
     </ol>
     <pre>&lt;!-- any non-WordPress site: one line --&gt;
 &lt;script src="https://achplug.com/plug.js" data-name="What you sell" data-price="20"&gt;&lt;/script&gt;</pre>
@@ -137,36 +138,17 @@
 
   <section id="screens">
     <h2>What your customer sees</h2>
-    <p class="lead">This is the real box, live. Press through it.</p>
-    <div class="ach">
-      <div class="ach-head"><h3>One filing read</h3><p>Any 8-K, 10-Q or exhibit, read into plain English.</p></div>
-      <div class="screen on" id="s1">
-        <div class="choice">
-          <div class="opt card"><small>Pay by card</small><div class="p">$20.00</div><small>Instant. Visa, Mastercard, Amex.</small><a class="go" href="#screens">Pay by card</a></div>
-          <div class="opt bank"><small>Pay from your bank</small><div class="p">$19.00</div><span class="was">$20.00</span><span class="save">You save 5%</span><button class="go" type="button" onclick="show(2)">Pay from my bank</button></div>
-        </div>
-        <details class="why"><summary>What is paying from my bank?</summary><p>You send the money straight from your bank account to ours, the same way you pay a utility bill. No card company sits in the middle taking a cut, which is why it costs less. We unlock your purchase the moment it arrives.</p></details>
-      </div>
-      <div class="screen" id="s2">
-        <div class="field"><label>Your name</label><input placeholder="As it appears on your bank account"></div>
-        <div class="field"><label>Email — we unlock your purchase here</label><input type="email" placeholder="you@example.com"></div>
-        <div class="slip"><h4>Send this from your bank</h4>
-          <div class="row"><span class="k">Amount</span><span class="v big">$19.00</span></div>
-          <div class="row"><span class="k">Pay to</span><span class="v">Your Business LLC</span></div>
-          <div class="row"><span class="k">Routing number</span><span class="v">021000021 <button class="copy" type="button" onclick="cp(this,'021000021')">Copy</button></span></div>
-          <div class="row"><span class="k">Account number</span><span class="v">•••• 4417 <button class="copy" type="button" onclick="cp(this,'4417')">Copy</button></span></div>
-          <div class="row"><span class="k">Memo / reference</span><span class="v"><span class="ref">8K-482913</span> <button class="copy" type="button" onclick="cp(this,'8K-482913')">Copy</button></span></div>
-        </div>
-        <ol class="steps2"><li>Open your bank's app or website.</li><li>Choose <em>Pay a bill</em> or <em>Send money to a business</em> and add us using the details above.</li><li>Put the reference in the memo so we can match it to you.</li><li>Send the amount, then come back and press the button below.</li></ol>
-        <button class="primary" type="button" onclick="show(3)">I've sent it</button><button class="ghost" type="button" onclick="show(1)">Back</button>
-      </div>
-      <div class="screen" id="s3">
-        <div class="done"><div class="mark">✓</div><h4>Thank you. We're watching for it.</h4><div class="ord">8K-482913</div><p>Keep this reference. When your transfer lands — usually 1 to 3 business days — we'll email your purchase to the address you gave. Nothing else to do.</p></div>
-        <button class="ghost" type="button" onclick="show(1)">Start over</button>
-      </div>
-      <div class="foot"><span>Questions? hello@yoursite.com</span><span>Pay-from-bank checkout by ACHplug</span></div>
+    <p class="lead">Three screens. Under two minutes. They never leave your site.</p>
+    <div class="two">
+      <div><b>1. The box</b><p>Card price and bank price side by side, with your discount worked out. They press <em>Pay from my bank</em>.</p></div>
+      <div><b>2. The form</b><p>Name, email, routing number, account number. Their bank's name appears as they type. Repeat every month, if you allow it — for 12 payments, until a date, or until they stop. One sentence of authorization. <em>Buy</em>.</p></div>
     </div>
-    <p class="lead" style="margin-top:12px">And in your dashboard: every order with its reference, the customer, the amount, and one button — <em>Mark paid &amp; email</em>. A red count on the menu tells you how many are waiting.</p>
+    <div class="shot" style="margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff"><iframe src="shots/form.html" title="The form" loading="lazy" style="width:100%;height:700px;border:0;display:block"></iframe></div>
+    <div class="two" style="margin-top:12px">
+      <div><b>3. Thank you</b><p>Who they paid, at what address, how much, from which account, the reference — and that the receipt comes when it clears.</p><div style="margin-top:8px;border:1px solid var(--line);border-radius:10px;overflow:hidden"><iframe src="shots/thanks.html" title="Thank you" loading="lazy" style="width:100%;height:420px;border:0;display:block"></iframe></div></div>
+      <div><b>Their own page</b><p>Every email carries a link to a page that is theirs: every payment they've approved, Revoke on any repeating one, every receipt. No password.</p><div style="margin-top:8px;border:1px solid var(--line);border-radius:10px;overflow:hidden"><iframe src="shots/me.html" title="Your payments" loading="lazy" style="width:100%;height:420px;border:0;display:block"></iframe></div></div>
+    </div>
+    <p class="lead" style="margin-top:12px">Their account number is encrypted the moment it arrives. You see the last four digits. The full number appears only inside the file your bank reads.</p>
   </section>
 
   <section id="fits">
@@ -181,13 +163,14 @@
   </section>
 
   <section id="why">
-    <h2>Why bank transfer</h2>
+    <h2>Why bank payments</h2>
     <div class="two">
-      <div><b>It costs you nothing.</b><p>A card processor takes about 3% and 30¢ of every sale. A bank transfer takes nothing. Pass some of that to the customer and they will choose it.</p></div>
-      <div><b>Nobody can freeze it.</b><p>A processor can hold your money for weeks on a complaint you never see. A transfer to your own bank account is yours the day it lands.</p></div>
-      <div><b>No customer bank details.</b><p>The customer pays you. You never pull from them, so you never store their account number.</p></div>
-      <div><b>Nothing leaves your site.</b><p>Orders live in your own WordPress database. ACHplug has no server in the loop and sees none of your sales.</p></div>
+      <div><b>No percentage.</b><p>A card processor takes about 3% and 30¢ of every sale. Your bank collecting an ACH payment costs cents, or nothing.</p></div>
+      <div><b>Nobody can freeze it.</b><p>A processor can hold your money for weeks on a complaint you never see. When your own bank collects, it is in your account and it is yours.</p></div>
+      <div><b>Recurring, with the customer in control.</b><p>A customer approves a repeat once — 12 payments on a contract, or a monthly service — and can pause or stop from the link in every email. Nothing is charged that they did not approve.</p></div>
+      <div><b>Nothing leaves your control.</b><p>Orders, the journal and the authorizations live in your dashboard. Your customers' account numbers are encrypted; you see the last four.</p></div>
     </div>
+    <p class="lead" style="margin-top:12px">Setting up collection with your bank takes one call. <a href="/help-collect.html">Here is what to say, word for word.</a> &nbsp;·&nbsp; About the coming <a href="/automatic.html">Automatic</a> option and why we recommend the file.</p>
   </section>
 
   <section id="buy">
@@ -196,7 +179,7 @@
     <div class="two">
       <div>
         <b>For WordPress</b>
-        <p>The plugin zip. Orders and the mark-paid button live in your own WordPress dashboard. Nothing leaves your site.</p>
+        <p>The plugin zip. Orders, Collect and the Sales Journal live in your own WordPress dashboard.</p>
         <div class="ach" style="margin-top:12px">
           <div class="screen on" style="padding:14px">
             <div class="choice" style="grid-template-columns:1fr">
@@ -208,7 +191,7 @@
       </div>
       <div>
         <b>For any other site</b>
-        <p>One line of code and a site key. Orders and the mark-paid button live in your desk at achplug.com. Works anywhere you can paste a script.</p>
+        <p>One line of code. Orders, Collect and the Sales Journal live in your dashboard at achplug.com. Works anywhere you can paste a script.</p>
         <div class="ach" style="margin-top:12px">
           <div class="screen on" style="padding:14px">
             <div class="choice" style="grid-template-columns:1fr">
@@ -222,7 +205,7 @@
     <p class="lead" style="margin-top:12px">Not sure which? If you log in to a WordPress dashboard to edit your site, take the plugin. If you edit your site anywhere else, take the one line. Email us and we will tell you.</p>
   </section>
 
-  <footer>Created by Mark Nejmeh, a small business person just like you. &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
+  <footer>Created by Mark Nejmeh, a small business person just like you. &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/help-collect.html">Bank setup</a> · <a href="/automatic.html">Automatic</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
 </div>
 <script>
   function show(n){[1,2,3].forEach(k=>document.getElementById('s'+k).classList.toggle('on',k===n));document.getElementById('screens').scrollIntoView({block:'start'});}
