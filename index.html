@@ -9,6 +9,7 @@
 <!-- 1d: works-with strip added under the hero -->
 <!-- 1e: Features link in nav -->
 <!-- 1f: footer credit and contact -->
+<!-- 2b, 3 Sep 2026: no Premium; company footer; box shown side by side; recurring section; comparison section; who-it-is-for line -->
 <!-- 2a, 3 Sep 2026: pull mode — customer approves, seller's bank collects; dashboard; links to help-collect and automatic -->
 <meta name="description" content="Your customer enters their bank details and approves. Your own bank collects it. No card processor, no percentage. WordPress plugin or one line of code. $25.">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
@@ -98,19 +99,19 @@
   .done .ord{font-family:var(--serif);font-size:28px;margin:10px 0 2px;letter-spacing:.03em;font-weight:600}
   .foot{padding:10px 20px 12px;border-top:1px solid var(--ach-line);font-size:12.5px;color:var(--slate);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   @media(max-width:480px){.choice{grid-template-columns:1fr}}
-</style>
+.cmp{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;min-width:760px}.cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.cmp th{background:var(--mist);font-weight:600}.cmp td:first-child{font-weight:600;width:22%}.cmp td.us{background:#eef5f1;font-weight:600}.cmp th:nth-child(2){background:var(--green);color:#fff}</style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="logo" href="/">ACH<b>plug</b></a>
-    <nav><a href="#how">How</a><a href="#screens">Screens</a><a href="/features.html">Features</a><a href="/help-collect.html">Bank setup</a><a href="#buy">Get it</a></nav>
+    <nav><a href="#screens">Screens</a><a href="#recurring">Recurring</a><a href="#compare">Compare</a><a href="/features.html">Features</a><a href="#buy">Get it</a></nav>
   </header>
 
   <div class="hero">
     <h1>Take bank payments on any website. No card processor.</h1>
     <p>A checkout box where your customer enters their bank details and approves the payment — one time or repeating. Your own bank collects it. No processor, no percentage, nobody who can hold your money. Give a discount for it if you like — 0 to 90%.</p>
-    <p style="margin-top:10px;font-weight:600">Two ways to use it, same price, same box:</p>
+    <p style="margin-top:10px"><b>For contractors, landlords, service businesses, consultants, nonprofits</b> — anyone paid on a contract, a deposit, or every month, who is tired of giving 3% to a card company.</p><p style="margin-top:10px;font-weight:600">Two ways to use it, same price, same box:</p>
     <div class="two" style="margin-top:10px">
       <div><b>WordPress</b><p>A plugin. Upload, activate, enter your bank details, put a shortcode on a page.</p></div>
       <div><b>Any other site</b><p>One line of code in any code block or embed. No install, nothing to host.</p></div>
@@ -140,7 +141,7 @@
     <h2>What your customer sees</h2>
     <p class="lead">Three screens. Under two minutes. They never leave your site.</p>
     <div class="two">
-      <div><b>1. The box</b><p>Card price and bank price side by side, with your discount worked out. They press <em>Pay from my bank</em>.</p></div>
+      <div><b>1. The box</b><p>Card price and bank price side by side, with your discount worked out. They press <em>Pay from my bank</em>.</p><div style="margin-top:8px;border:1px solid var(--line);border-radius:10px;overflow:hidden"><iframe src="shots/box.html" title="The box" loading="lazy" style="width:100%;height:330px;border:0;display:block"></iframe></div></div>
       <div><b>2. The form</b><p>Name, email, routing number, account number. Their bank's name appears as they type. Repeat every month, if you allow it — for 12 payments, until a date, or until they stop. One sentence of authorization. <em>Buy</em>.</p></div>
     </div>
     <div class="shot" style="margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff"><iframe src="shots/form.html" title="The form" loading="lazy" style="width:100%;height:700px;border:0;display:block"></iframe></div>
@@ -149,6 +150,16 @@
       <div><b>Their own page</b><p>Every email carries a link to a page that is theirs: every payment they've approved, Revoke on any repeating one, every receipt. No password.</p><div style="margin-top:8px;border:1px solid var(--line);border-radius:10px;overflow:hidden"><iframe src="shots/me.html" title="Your payments" loading="lazy" style="width:100%;height:420px;border:0;display:block"></iframe></div></div>
     </div>
     <p class="lead" style="margin-top:12px">Their account number is encrypted the moment it arrives. You see the last four digits. The full number appears only inside the file your bank reads.</p>
+  </section>
+
+  <section id="recurring">
+    <h2>Recurring payments — a contract paid off, a service kept up</h2>
+    <p class="lead">This is the part card processors charge the most for, and it is built in.</p>
+    <div class="two">
+      <div><b>For you</b><p>Switch it on in Settings. A roofing contract in 12 payments. A monthly service. A yearly membership. Each payment appears on Collect by itself when it is due — you collect it with the rest of the day's file.</p></div>
+      <div><b>For your customer</b><p>They approve once, on your site: every month, for 12 payments, or until a date. Before each one they get an email saying it is coming. Every email has Pause and Stop. Nothing is ever collected that they did not approve, and they can end it without calling anyone.</p></div>
+    </div>
+    <p class="lead" style="margin-top:12px">Charging extra for paying over time makes the sale a credit sale under federal law and needs disclosures; most sellers price the contract once and offer a discount for paying in full instead. That decision is yours — ACHplug handles either.</p>
   </section>
 
   <section id="fits">
@@ -171,6 +182,13 @@
       <div><b>Nothing leaves your control.</b><p>Orders, the journal and the authorizations live in your dashboard. Your customers' account numbers are encrypted; you see the last four.</p></div>
     </div>
     <p class="lead" style="margin-top:12px">Setting up collection with your bank takes one call. <a href="/help-collect.html">Here is what to say, word for word.</a> &nbsp;·&nbsp; About the coming <a href="/automatic.html">Automatic</a> option and why we recommend the file.</p>
+  </section>
+
+  <section id="compare">
+    <h2>How it compares</h2>
+    <p class="lead">Every other way to take bank payments on a website puts a card company between you and your money, or leaves you matching deposits by hand.</p>
+    <div style="overflow:auto"><table class="cmp"><thead><tr><th></th><th>ACHplug</th><th>WP Simple Pay Pro</th><th>Formidable Forms</th><th>WooCommerce Direct Bank Transfer</th><th>WooPayments / Stripe ACH</th></tr></thead><tbody><tr><td>How the money moves</td><td class="us">Customer approves on your site; your bank collects</td><td>Stripe pulls (ACH debit)</td><td>Stripe pulls</td><td>Customer sends it themselves; you match it by hand</td><td>Stripe pulls</td></tr><tr><td>Company between you and your money</td><td class="us">None</td><td>Stripe</td><td>Stripe</td><td>None</td><td>Stripe</td></tr><tr><td>Fee per payment</td><td class="us">$0 from ACHplug; your bank's ACH cost, often nothing</td><td>0.8% capped at $5, plus $1.50 verification</td><td>Stripe's rate plus 3% on the free plan</td><td>$0</td><td>0.8%, cap $5</td></tr><tr><td>Software price</td><td class="us">$25 once</td><td>Paid license — ACH not in the free version</td><td>Free with 3% fee, or paid license</td><td>Free, needs WooCommerce</td><td>Free, needs WooCommerce</td></tr><tr><td>Can your money be held</td><td class="us">No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr><tr><td>Recurring: contract paid off, service kept up</td><td class="us">Yes — customer approves once, pauses or stops any time</td><td>Yes, through Stripe</td><td>Yes, through Stripe</td><td>No</td><td>Yes, through Stripe + Subscriptions</td></tr><tr><td>Discount for paying by bank</td><td class="us">Built in, 0–90%</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>Customer's routing number checked against the Fed directory</td><td class="us">Yes</td><td>n/a</td><td>n/a</td><td>No</td><td>n/a</td></tr><tr><td>Sales journal, week/month/year, CSV</td><td class="us">Built in</td><td>Stripe dashboard</td><td>No</td><td>WooCommerce orders</td><td>Stripe dashboard</td></tr><tr><td>Works without a store platform</td><td class="us">Yes — any page</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>Instant clearing</td><td class="us">No — 1 to 3 days</td><td>No — 3 to 5 days</td><td>No</td><td>No</td><td>No</td></tr></tbody></table></div>
+    <p class="lead" style="margin-top:10px">Fees and features as published by each company, September 2026. <a href="/compare.html">Full comparison →</a></p>
   </section>
 
   <section id="buy">
@@ -205,7 +223,7 @@
     <p class="lead" style="margin-top:12px">Not sure which? If you log in to a WordPress dashboard to edit your site, take the plugin. If you edit your site anywhere else, take the one line. Email us and we will tell you.</p>
   </section>
 
-  <footer>Created by Mark Nejmeh, a small business person just like you. &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> &nbsp;·&nbsp; Part of the <a href="https://adhotbox.com">AdHotBox</a> family for small websites. &nbsp;·&nbsp; <a href="/help-collect.html">Bank setup</a> · <a href="/automatic.html">Automatic</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
+  <footer><b style="color:var(--ink)">ACHplug</b> is a product of Jersey Shore Constllc &nbsp;·&nbsp; 377 Valley Rd, Clifton NJ 07013 &nbsp;·&nbsp; <a href="tel:+17329953914">732-995-3914</a> &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a><br>App created by Mark Nejmeh, a small business person like you. &nbsp;·&nbsp; <a href="/compare.html">Compare</a> · <a href="/help-collect.html">Bank setup</a> · <a href="/automatic.html">Automatic</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
 </div>
 <script>
   function show(n){[1,2,3].forEach(k=>document.getElementById('s'+k).classList.toggle('on',k===n));document.getElementById('screens').scrollIntoView({block:'start'});}

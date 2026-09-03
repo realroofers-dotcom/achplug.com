@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ACHplug — Features</title>
-<!-- achplug-site 2a, 3 Sep 2026: features page for pull mode; dashboard; screens from the live code. -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACHplug — compared with the alternatives</title>
+<!-- achplug-site 2b, 3 Sep 2026: comparison page -->
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{--paper:#F7F9F6;--ink:#17251F;--green:#1E6B4E;--deep:#144A36;--mist:#E6ECE8;--slate:#5F6F68;--line:#C9D4CE;--white:#fff;
@@ -92,97 +89,15 @@
   .done .ord{font-family:var(--serif);font-size:28px;margin:10px 0 2px;letter-spacing:.03em;font-weight:600}
   .foot{padding:10px 20px 12px;border-top:1px solid var(--ach-line);font-size:12.5px;color:var(--slate);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   @media(max-width:480px){.choice{grid-template-columns:1fr}}
-</style>
-<style>
-  .feat{display:grid;grid-template-columns:1fr;gap:14px;padding:26px 0;border-top:1px solid var(--line)}
-  .feat h2{margin-bottom:4px}
-  .feat p{color:var(--slate);max-width:60ch}
-  .feat ul{margin:8px 0 0 18px;color:var(--slate)}
-  .shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 8px 30px rgba(23,37,31,.08)}
-  .shot iframe{width:100%;height:520px;border:0;display:block}
-  .shot.short iframe{height:260px}
-  .shot.tall iframe{height:760px}
-  .cap{font-size:13px;color:var(--slate);padding:8px 12px;border-top:1px solid var(--line);background:var(--paper)}
-  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-  .toc a{font-size:14px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:6px 12px;background:#fff}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <a class="logo" href="/">ACH<b>plug</b></a>
-    <nav><a href="/#screens">Screens</a><a href="/#recurring">Recurring</a><a href="/compare.html">Compare</a><a href="/features.html">Features</a><a href="/#buy">Get it</a></nav>
-  </header>
-
-  <div class="hero" style="padding-bottom:10px">
-    <h1>What you get.</h1>
-    <p>Every screen below is the real thing, rendered with sample orders. Nothing is mocked up.</p>
-    <div class="toc"><a href="#box">The checkout box</a><a href="#collect">Collect</a><a href="#desk">Your dashboard</a><a href="#register">Sales Journal</a><a href="#recur">Recurring</a><a href="#verify">Bank check</a><a href="#emails">Receipts &amp; emails</a><a href="#donate">Donations</a><a href="#fits">Fits your site</a></div>
-  </div>
-
-  <section class="feat" id="box">
-    <h2>The checkout box</h2>
-    <p>Card price and bank price side by side, your discount worked out — 0 to 90%, your call. The customer presses Pay from my bank, enters their routing and account number (their bank's name appears as they type), approves in one sentence, presses Buy. Under two minutes, on your page.</p>
-    <div class="shot tall"><iframe src="shots/form.html" title="The form" loading="lazy"></iframe><div class="cap">The form, with the repeat panel open and the authorization sentence.</div></div>
-    <ul><li>Optional card button linking to any checkout you already have</li><li>Account numbers encrypted on arrival; you see the last four</li><li>Optional: show bank only, no card button</li></ul>
+.cmp{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;min-width:760px}.cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.cmp th{background:var(--mist);font-weight:600}.cmp td:first-child{font-weight:600;width:22%}.cmp td.us{background:#eef5f1;font-weight:600}.cmp th:nth-child(2){background:var(--green);color:#fff}</style>
+</head><body><div class="wrap">
+  <header><a class="logo" href="/">ACH<b>plug</b></a><nav><a href="/#screens">Screens</a><a href="/#recurring">Recurring</a><a href="/compare.html">Compare</a><a href="/features.html">Features</a><a href="/#buy">Get it</a></nav></header>
+  <div class="hero" style="padding-bottom:10px"><h1>Compared with the alternatives.</h1><p>Almost everything called "ACH" for websites is a Stripe plugin: a card company pulls from your customer, takes a percentage, and can hold your money. The one exception, WooCommerce's bank transfer, shows your account number and leaves you matching deposits by hand. ACHplug is neither.</p></div>
+  <section><div style="overflow:auto"><table class="cmp"><thead><tr><th></th><th>ACHplug</th><th>WP Simple Pay Pro</th><th>Formidable Forms</th><th>WooCommerce Direct Bank Transfer</th><th>WooPayments / Stripe ACH</th></tr></thead><tbody><tr><td>How the money moves</td><td class="us">Customer approves on your site; your bank collects</td><td>Stripe pulls (ACH debit)</td><td>Stripe pulls</td><td>Customer sends it themselves; you match it by hand</td><td>Stripe pulls</td></tr><tr><td>Company between you and your money</td><td class="us">None</td><td>Stripe</td><td>Stripe</td><td>None</td><td>Stripe</td></tr><tr><td>Fee per payment</td><td class="us">$0 from ACHplug; your bank's ACH cost, often nothing</td><td>0.8% capped at $5, plus $1.50 verification</td><td>Stripe's rate plus 3% on the free plan</td><td>$0</td><td>0.8%, cap $5</td></tr><tr><td>Software price</td><td class="us">$25 once</td><td>Paid license — ACH not in the free version</td><td>Free with 3% fee, or paid license</td><td>Free, needs WooCommerce</td><td>Free, needs WooCommerce</td></tr><tr><td>Can your money be held</td><td class="us">No</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr><tr><td>Recurring: contract paid off, service kept up</td><td class="us">Yes — customer approves once, pauses or stops any time</td><td>Yes, through Stripe</td><td>Yes, through Stripe</td><td>No</td><td>Yes, through Stripe + Subscriptions</td></tr><tr><td>Discount for paying by bank</td><td class="us">Built in, 0–90%</td><td>No</td><td>No</td><td>No</td><td>No</td></tr><tr><td>Customer's routing number checked against the Fed directory</td><td class="us">Yes</td><td>n/a</td><td>n/a</td><td>No</td><td>n/a</td></tr><tr><td>Sales journal, week/month/year, CSV</td><td class="us">Built in</td><td>Stripe dashboard</td><td>No</td><td>WooCommerce orders</td><td>Stripe dashboard</td></tr><tr><td>Works without a store platform</td><td class="us">Yes — any page</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>Instant clearing</td><td class="us">No — 1 to 3 days</td><td>No — 3 to 5 days</td><td>No</td><td>No</td><td>No</td></tr></tbody></table></div></section>
+  <section>
+    <h2>What the others do better</h2>
+    <p class="lead">Honesty cuts both ways. A processor clears faster in some cases, needs no bank setup on your side, and handles a bounced payment automatically. If you sell hundreds of small items a day to strangers and need every dollar confirmed in seconds, a processor is the right tool and its fee is the price of that. ACHplug is for the seller whose payments are fewer and larger — deposits, contracts, monthly services — where 3% is real money and a held payout is a real problem.</p>
   </section>
-
-  <section class="feat" id="collect">
-    <h2>Collect — your one job</h2>
-    <p>Approved payments wait here. Download one bank file, upload it to your bank's ACH origination page, press "mark as sent." When the money shows in your account, press Received — the customer gets their receipt and the payment moves to the journal. Every morning there is something to collect, the file and the links come to you by email.</p>
-    <div class="shot"><iframe src="shots/collect.html" title="Collect" loading="lazy"></iframe><div class="cap">Two ready to collect, one sent and waiting to clear.</div></div>
-    <p>Setting this up with your bank is one phone call — <a href="/help-collect.html">the words to use are here</a>. An <a href="/automatic.html">Automatic</a> option is coming for sellers who want no upload at all.</p>
-  </section>
-
-  <section class="feat" id="desk">
-    <h2>Your dashboard</h2>
-    <p>Your code to paste at the top. What's ready to collect. Repeating payments and their status. Settings underneath. The header bar — Dashboard · Collect · Sales Journal · Settings · Help — is on every page.</p>
-    <div class="shot"><iframe src="shots/dashboard.html" title="The dashboard" loading="lazy"></iframe><div class="cap">The dashboard with a repeating payment three months in.</div></div>
-  </section>
-
-  <section class="feat" id="register">
-    <h2>Sales Journal — ACH payments</h2>
-    <p>Last 7 days, this month, this year, all time. The card fees you did not pay. Totals by month and by product. Then every invoice under Unpaid / Paid / All with search, and a CSV for your accountant.</p>
-    <div class="shot tall"><iframe src="shots/journal.html" title="Sales Journal" loading="lazy"></iframe><div class="cap">The journal with sample payments, opened on Unpaid.</div></div>
-  </section>
-
-  <section class="feat" id="recur">
-    <h2>Recurring — a contract paid off, or a service kept up</h2>
-    <p>Switch it on and the customer can choose to repeat: every week, month or year — until they stop it, for a set number of payments, or until a date. They approve once. Each period the next payment appears on Collect by itself, the customer is told it is coming, and every email carries their Pause / Stop link. Nothing is ever collected that they did not approve, and they can end it without calling anyone.</p>
-  </section>
-
-  <section class="feat" id="verify">
-    <h2>Your routing number is checked against the Federal Reserve directory</h2>
-    <p>A mistyped routing number means a customer's money goes nowhere. So when you save, the number is looked up in the Federal Reserve ACH directory — 18,000 banks and credit unions — and the bank’s name is filled in for you. A number that is not in the directory is refused, and the dashboard tells you why. The same check runs on your customers’ routing numbers as they type.</p>
-    <div class="shot short"><iframe src="shots/rejected.html" title="Rejected routing number" loading="lazy"></iframe><div class="cap">What a wrong number gets.</div></div>
-    <div class="shot"><iframe src="shots/settings.html" title="Settings" loading="lazy"></iframe><div class="cap">Settings 5 to 7: how the money is collected, what your bank needs, repeating payments.</div></div>
-  </section>
-
-  <section class="feat" id="emails">
-    <h2>Two emails, your words</h2>
-    <p>The customer gets a confirmation the moment they press Buy — who they paid, how much, from which account, and their authorization for their records — and a receipt when you press Received. Both reply to your address. Standard wording is in each box; press Edit to make it yours.</p>
-    <div class="shot tall"><iframe src="shots/emails.html" title="The two emails" loading="lazy"></iframe><div class="cap">The confirmation and the receipt.</div></div>
-  </section>
-
-  <section class="feat" id="donate">
-    <h2>Donations</h2>
-    <p>Select <em>Taking donations</em> and the box changes: no discount, the donor picks an amount from your suggested list or types their own, the wording becomes "give from your bank — no card fees taken, 100% arrives," and the receipt carries your tax ID and the line the IRS wants on a donation acknowledgment. Built for nonprofits, churches, and anyone raising money.</p>
-  </section>
-
-  <section class="feat" id="fits">
-    <h2>Fits your site</h2>
-    <p>The box has no font and no colours of its own. It takes your theme's type and text colour; four variables set the accent, background, line and corner radius, and the WordPress plugin reads them from your theme. It looks like it was always there.</p>
-    <p>Works with WordPress, Wix, Squarespace, Square Online, Drupal, Joomla, Shopify, Webflow, Weebly, GoDaddy, Carrd, Ghost, plain HTML — anything with a code block or embed.</p>
-  </section>
-
-  <section class="feat">
-    <h2>$25, once</h2>
-    <p>Both versions — the WordPress plugin, or the one line of code and a dashboard here for any other site. Updates for a year, email support from a person.</p>
-    <p><a class="cta" href="/#buy">Get ACHplug <span>$25</span></a></p>
-  </section>
-
+  <p class="lead" style="margin-top:10px">Fees and features as published by each company, September 2026. Corrections: <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a>.</p>
   <footer><b style="color:var(--ink)">ACHplug</b> is a product of Jersey Shore Constllc &nbsp;·&nbsp; 377 Valley Rd, Clifton NJ 07013 &nbsp;·&nbsp; <a href="tel:+17329953914">732-995-3914</a> &nbsp;·&nbsp; <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a><br>App created by Mark Nejmeh, a small business person like you. &nbsp;·&nbsp; <a href="/compare.html">Compare</a> · <a href="/help-collect.html">Bank setup</a> · <a href="/automatic.html">Automatic</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></footer>
-</div>
-<script src="https://adhotbox.com/box.js" data-auto data-not=".shot, .feat#box, pre"></script>
-</body>
-</html>
+</div></body></html>
