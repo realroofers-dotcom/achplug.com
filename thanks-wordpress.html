@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Thank you — your ACHplug download</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet"><style>
+  :root{--paper:#F7F9F6;--ink:#17251F;--green:#1E6B4E;--deep:#144A36;--mist:#E6ECE8;--slate:#5F6F68;--line:#C9D4CE;--white:#fff;
+        --sans:"Source Sans 3",system-ui,sans-serif;--serif:"Source Serif 4",Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.5;font-size:17px}
+  a{color:var(--green)} button{font:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--green);outline-offset:2px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  header{padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:var(--serif);font-size:24px;font-weight:600;text-decoration:none;color:var(--ink);letter-spacing:-.01em;display:inline-flex;align-items:center;gap:8px}
+  .logo b{color:var(--green);font-weight:600}
+  header nav a{margin-left:16px;font-size:15px;text-decoration:none;color:var(--slate)}
+  .hero{padding:44px 0 26px}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,44px);line-height:1.1;letter-spacing:-.015em;max-width:18ch}
+  .hero p{font-size:19px;color:var(--slate);margin-top:14px;max-width:48ch}
+  .hero .cta{display:inline-block;margin-top:22px;background:var(--green);color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:8px}
+  .hero .cta span{opacity:.75;font-weight:400;margin-left:8px}
+  section{padding:30px 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.01em;margin-bottom:12px}
+  .lead{color:var(--slate);max-width:56ch;margin-bottom:14px}
+  ol.steps{counter-reset:s;list-style:none;display:grid;gap:12px}
+  ol.steps li{counter-increment:s;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px 16px 16px 58px;position:relative}
+  ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;font-family:var(--serif);font-weight:600;display:flex;align-items:center;justify-content:center}
+  ol.steps li b{display:block;margin-bottom:2px}
+  ol.steps code{background:var(--mist);padding:2px 6px;border-radius:4px;font-size:.92em}
+  pre{background:var(--ink);color:var(--paper);padding:14px 16px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.5;margin-top:10px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .two div{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .two b{display:block;margin-bottom:4px}
+  .two p{font-size:15px;color:var(--slate)}
+  .fit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  .fit .demo-a,.fit .demo-b{border-radius:10px;padding:14px;font-size:14px}
+  .demo-a{background:#fff;border:1px solid #ddd;font-family:Georgia,serif;color:#222}
+  .demo-b{background:#101418;color:#e8ecef;border:1px solid #2a3138;font-family:system-ui,sans-serif}
+  .mini{margin-top:8px;border:1.5px solid;border-radius:8px;padding:10px}
+  .demo-a .mini{border-color:#b0413e;background:#fbf4f3}.demo-a .mini i{color:#b0413e}
+  .demo-b .mini{border-color:#4fa3ff;background:#161c22}.demo-b .mini i{color:#4fa3ff}
+  .mini i{font-style:normal;font-weight:600;font-size:12px}
+  .mini em{font-style:normal;display:block;font-size:22px;font-weight:600;margin:2px 0}
+  .mini s{opacity:.55;font-size:12px}
+  .mini u{display:block;text-decoration:none;text-align:center;border-radius:5px;padding:6px;margin-top:8px;color:#fff;font-size:13px;font-weight:600}
+  .demo-a .mini u{background:#b0413e}.demo-b .mini u{background:#4fa3ff;color:#0b0f13}
+  .price{background:var(--white);border:1.5px solid var(--green);border-radius:12px;padding:22px}
+  .price .big{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1}
+  .price .big small{font-family:var(--sans);font-size:16px;font-weight:400;color:var(--slate);margin-left:8px}
+  .price ul{margin:12px 0 0 18px;color:var(--slate)}
+  .price ul li{margin:4px 0}
+  footer{padding:26px 0 40px;font-size:14px;color:var(--slate);border-top:1px solid var(--line)}
+  footer a{color:inherit}
+  @media(max-width:560px){.two,.fit{grid-template-columns:1fr}header nav a{margin-left:10px}}
+
+  /* ---- the widget, exactly as it ships (inherits font + colour from the page) ---- */
+  .ach{--ach-accent:var(--green);--ach-bg:var(--paper);--ach-line:var(--line);--ach-radius:10px;
+       font:inherit;color:inherit;background:var(--white);border:1px solid var(--ach-line);border-radius:var(--ach-radius);overflow:hidden;margin-top:14px}
+  .ach-head{padding:20px 20px 4px}.ach-head h3{font-family:var(--serif);font-weight:600;font-size:21px}.ach-head p{color:var(--slate);font-size:15px}
+  .screen{display:none;padding:12px 20px 20px}.screen.on{display:block}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .opt{border:1.5px solid var(--ach-line);border-radius:var(--ach-radius);padding:14px 14px 12px;background:var(--white)}
+  .opt small{display:block;font-size:14px;color:var(--slate)}
+  .opt .p{font-family:var(--serif);font-size:32px;line-height:1.05;margin:5px 0 3px;font-variant-numeric:tabular-nums;font-weight:600}
+  .opt .was{font-size:14px;color:var(--slate);text-decoration:line-through}
+  .opt .save{display:inline-block;margin-left:6px;font-size:13px;font-weight:600;color:var(--ach-accent)}
+  .opt.bank{border-color:var(--ach-accent);background:var(--ach-bg)}
+  .opt .go{margin-top:12px;display:block;width:100%;border:0;border-radius:7px;padding:10px;font-weight:600;font-size:15px;text-align:center;text-decoration:none}
+  .opt.card .go{background:var(--ink);color:var(--paper)}.opt.bank .go{background:var(--ach-accent);color:#fff}
+  details.why{margin-top:14px;border-top:1px solid var(--ach-line);padding-top:10px;font-size:15px}
+  details.why summary{cursor:pointer;color:var(--ach-accent);font-weight:600;list-style:none}details.why summary::-webkit-details-marker{display:none}
+  details.why p{margin-top:6px;max-width:60ch}
+  .field{margin-top:10px}.field label{display:block;font-size:14px;color:var(--slate);margin-bottom:3px}
+  .field input{width:100%;border:1.5px solid var(--ach-line);border-radius:7px;padding:9px 11px;font:inherit;font-size:16px}
+  .field input:focus{border-color:var(--ach-accent);outline:none}
+  .slip{margin-top:14px;border:1.5px solid var(--ach-accent);border-radius:var(--ach-radius);background:var(--ach-bg);padding:14px}
+  .slip h4{font-family:var(--serif);font-weight:600;font-size:17px;margin-bottom:6px}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;border-bottom:1px solid var(--ach-line)}.row:last-child{border-bottom:0}
+  .row .k{font-size:14px;color:var(--slate)}.row .v{font-family:var(--serif);font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:.02em;text-align:right;font-weight:600}
+  .row .v.big{font-size:24px;color:var(--deep)}
+  .copy{border:1px solid var(--ach-line);background:var(--white);border-radius:5px;font-size:12px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+  .copy[data-done="1"]{background:var(--ach-accent);color:#fff;border-color:var(--ach-accent)}
+  .steps2{margin:12px 0 0 20px;font-size:15px;max-width:60ch}.steps2 li{margin:5px 0}
+  .primary{margin-top:14px;width:100%;border:0;border-radius:7px;padding:12px;font-weight:600;font-size:16px;background:var(--ach-accent);color:#fff}
+  .ghost{margin-top:8px;width:100%;border:0;background:none;color:var(--slate);font-size:14px;padding:6px}
+  .done{text-align:center;padding:8px 0 4px}.done .mark{width:52px;height:52px;border-radius:50%;background:var(--ach-accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:8px}
+  .done h4{font-family:var(--serif);font-weight:600;font-size:21px}.done p{color:var(--slate);margin:6px auto 0;max-width:44ch}
+  .done .ord{font-family:var(--serif);font-size:28px;margin:10px 0 2px;letter-spacing:.03em;font-weight:600}
+  .foot{padding:10px 20px 12px;border-top:1px solid var(--ach-line);font-size:12.5px;color:var(--slate);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  @media(max-width:480px){.choice{grid-template-columns:1fr}}
+.cmp{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;min-width:760px}.cmp th,.cmp td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.cmp th{background:var(--mist);font-weight:600}.cmp td:first-child{font-weight:600;width:22%}.cmp td.us{background:#eef5f1;font-weight:600}.cmp th:nth-child(2){background:var(--green);color:#fff}.howto-tabs{display:flex;gap:8px;margin:12px 0 10px}.howto-tabs button{font:inherit;font-weight:600;border:1px solid var(--line);background:#fff;border-radius:20px;padding:8px 16px;cursor:pointer}.howto-tabs button.on{background:var(--green);color:#fff;border-color:var(--green)}.howto-frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}.howto-frame iframe{width:100%;height:640px;border:0;display:block}
+</style></head><body><div class="wrap">
+<header><a class="logo" href="/">ACH<b>plug</b></a></header>
+<div class="hero"><h1>Thank you.</h1><p>Here is ACHplug for WordPress. Upload it under Plugins → Add New → Upload Plugin, and you land on Getting started.</p>
+<a class="cta" href="/dl/achplug-2.0.0.zip">Download the plugin <span>achplug-2.0.0.zip</span></a>
+<h2 style="margin-top:34px">Then watch the setup — 90 seconds</h2><div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-top:10px"><iframe src="/howto-wordpress.html" title="How to set up ACHplug" loading="lazy" style="width:100%;height:580px;border:0;display:block"></iframe></div><p style="margin-top:18px">Also: <a href="/howto-wordpress.html">the setup on its own page</a> · <a href="/help-collect.html">what to say to your bank</a> · questions: <a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a> or 732-995-3914.</p>
+<p style="margin-top:10px;color:var(--slate);font-size:14px">Keep this page's address — it is your download link for updates for a year.</p></div>
+<footer><b style="color:var(--ink)">ACHplug</b> is a product of Jersey Shore Constllc &nbsp;·&nbsp; 377 Valley Rd, Clifton NJ 07013 &nbsp;·&nbsp; <a href="tel:+17329953914">732-995-3914</a></footer></div></body></html>

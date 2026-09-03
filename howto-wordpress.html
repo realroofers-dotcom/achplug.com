@@ -22,8 +22,8 @@
   h1{font-family:Georgia,serif;font-weight:600;font-size:24px;margin-bottom:4px}
   .sub{color:var(--slate);font-size:14px;margin-bottom:12px}
   .stage{position:relative;background:#f0f0f1;border:1px solid #c3c4c7;border-radius:10px;overflow:hidden;height:520px}
-  .frame{position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none}
-  .frame.on{opacity:1;pointer-events:auto}
+  .frame{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s;pointer-events:none;background:#f0f0f1}
+  .frame.on{opacity:1;visibility:visible;transition:opacity .4s;pointer-events:auto}
   .cap{position:absolute;left:0;right:0;bottom:0;background:rgba(23,37,31,.92);color:#fff;padding:12px 18px;font-size:15px;line-height:1.4}
   .cap b{color:#9cc7b1}
   .ctl{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
@@ -66,12 +66,13 @@
   .form{padding:8px 16px 14px;font-family:system-ui,sans-serif;font-size:12px}.form .f{margin-top:6px}.form .f span{display:block;color:var(--slate)}.form .f div{border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;background:#fff}
   .agree{display:flex;gap:6px;margin-top:8px;font-size:11.5px;align-items:flex-start}.agree i{display:inline-block;width:12px;height:12px;border:1.5px solid var(--green);border-radius:3px;background:var(--green);flex:none;margin-top:2px}
   .buy{display:block;text-align:center;background:var(--green);color:#fff;border-radius:6px;padding:9px;font-weight:600;margin-top:10px}
-  .pointer{position:absolute;width:22px;height:22px;pointer-events:none;transition:all .8s cubic-bezier(.4,0,.2,1)}
+  .pointer{position:absolute;width:22px;height:22px;pointer-events:none;transition:left .8s cubic-bezier(.4,0,.2,1),top .8s cubic-bezier(.4,0,.2,1);opacity:0}
   .pointer::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(232,163,61,.35);border:2px solid #E8A33D;animation:pulse 1.2s infinite}
   @keyframes pulse{0%{transform:scale(.8)}50%{transform:scale(1.25)}100%{transform:scale(.8)}}
   table.t{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #c3c4c7;margin-top:8px}table.t th,table.t td{padding:7px 9px;border-bottom:1px solid #eee;text-align:left}
   .green{color:var(--green);font-weight:600}.amber{color:#b45309;font-weight:600}
   @media(max-width:700px){.stage{height:600px}.edbody{padding:20px}.site{padding:16px}.wpside{display:none}.wpmain{left:0}.panel{display:none}}
+body.embedded{padding:10px}body.embedded h1,body.embedded .sub{display:none}body.embedded .stage{height:470px}body.embedded .ctl{margin-top:8px}
 </style>
 </head>
 <body>
@@ -168,12 +169,13 @@
   var ptr=document.getElementById('ptr'),bar=document.getElementById('bar'),dots=document.getElementById('dots');
   var targets={0:'p1',5:'p6',6:'p7',7:'p8',8:'p9'};
   frames.forEach(function(_,k){var d=document.createElement('span');d.addEventListener('click',function(){go(k);});dots.appendChild(d);});
-  function point(k){var id=targets[k];var st=document.getElementById('stage').getBoundingClientRect();if(id){var el=document.getElementById(id);var r=el.getBoundingClientRect();ptr.style.left=(r.left-st.left+r.width/2-11)+'px';ptr.style.top=(r.top-st.top+r.height/2-11)+'px';ptr.style.opacity=1;}else ptr.style.opacity=0;}
+  function point(k){var id=targets[k];var st=document.getElementById('stage').getBoundingClientRect();if(id){var el=document.getElementById(id);var r=el.getBoundingClientRect();ptr.style.left=(r.left-st.left+r.width/2-11)+'px';ptr.style.top=(r.top-st.top+r.height/2-11)+'px';ptr.style.opacity=1;}else{ptr.style.opacity=0;}}
   function go(k){i=(k+frames.length)%frames.length;frames.forEach(function(f,j){f.classList.toggle('on',j===i);});[].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i);});setTimeout(function(){point(i);},60);bar.style.transition='none';bar.style.width='0';if(playing){setTimeout(function(){bar.style.transition='width '+DUR+'ms linear';bar.style.width='100%';},30);}clearTimeout(t);if(playing)t=setTimeout(function(){go(i+1);},DUR);}
   document.getElementById('next').onclick=function(){go(i+1);};document.getElementById('prev').onclick=function(){go(i-1);};
   document.getElementById('play').onclick=function(){playing=!playing;this.textContent=playing?'Pause':'Play';go(i);};
   window.addEventListener('resize',function(){point(i);});go(0);
 })();
+if(window.self!==window.top){document.body.classList.add('embedded');}
 </script>
 </body>
 </html>
