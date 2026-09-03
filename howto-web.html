@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACHplug on any website — how to set it up (animated)</title>
+<!-- achplug how-to animation, WEB version 1a, 3 Sep 2026. Single file. Frames are mockups of the real achplug.com dashboard screens. -->
+<style>
+  :root{--wp:#1d2327;--wpblue:#2271b1;--green:#1E6B4E;--paper:#F7F9F6;--line:#C9D4CE;--ink:#17251F;--slate:#5F6F68}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);padding:18px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-family:Georgia,serif;font-weight:600;font-size:24px;margin-bottom:4px}
+  .sub{color:var(--slate);font-size:14px;margin-bottom:12px}
+  .stage{position:relative;background:#f0f0f1;border:1px solid #c3c4c7;border-radius:10px;overflow:hidden;height:520px}
+  .frame{position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none}
+  .frame.on{opacity:1;pointer-events:auto}
+  .cap{position:absolute;left:0;right:0;bottom:0;background:rgba(23,37,31,.92);color:#fff;padding:12px 18px;font-size:15px;line-height:1.4}
+  .cap b{color:#9cc7b1}
+  .ctl{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .ctl button{font:inherit;font-weight:600;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;cursor:pointer}
+  .ctl button.primary{background:var(--green);color:#fff;border-color:var(--green)}
+  .dots{display:flex;gap:6px;margin-left:auto}.dots span{width:10px;height:10px;border-radius:50%;background:#c3c4c7;cursor:pointer}.dots span.on{background:var(--green)}
+  .bar{height:4px;background:var(--green);width:0;transition:width linear}
+  /* wp-admin mock */
+  .wpbar{height:32px;background:var(--wp);color:#fff;font-size:13px;display:flex;align-items:center;padding:0 12px;gap:18px}
+  .wpside{position:absolute;left:0;top:32px;bottom:0;width:160px;background:#1d2327;color:#f0f0f1;font-size:13px;padding-top:10px}
+  .wpside div{padding:8px 12px}.wpside div.on{background:var(--wpblue);color:#fff}.wpside .sub2{padding-left:24px;font-size:12px;color:#c3c4c7}
+  .wpmain{position:absolute;left:160px;top:32px;right:0;bottom:0;padding:18px 22px;overflow:hidden;background:#f0f0f1}
+  .wpmain h2{font-size:22px;font-weight:400;margin-bottom:10px}
+  .btn{display:inline-block;background:var(--wpblue);color:#fff;border-radius:3px;padding:6px 12px;font-size:13px}
+  .btn.o{background:#fff;color:var(--wpblue);border:1px solid var(--wpblue)}
+  .box{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:14px;margin-top:10px;font-size:13px}
+  .gbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #ccd;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px}
+  .gbar b{font-family:Georgia,serif;font-size:18px}.gbar b i{color:var(--green);font-style:normal}
+  .gbar span{border:1px solid #ccd;border-radius:16px;padding:4px 10px;background:var(--paper)}.gbar span.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .field{margin-top:8px;font-size:13px}.field label{display:block;color:#50575e;margin-bottom:3px}.field input{width:100%;max-width:420px;border:1px solid #8c8f94;border-radius:4px;padding:6px 8px;font:inherit;font-size:13px;background:#fff}
+  .tiles{display:flex;gap:8px;margin-top:6px}.tile{flex:1;border:1.5px solid #ccd;border-radius:8px;padding:8px 10px 8px 30px;position:relative;font-size:12px;background:#fff}.tile.on{border-color:var(--green);background:#eef5f1}.tile::before{content:"";position:absolute;left:10px;top:11px;width:12px;height:12px;border-radius:50%;border:2px solid #8c8f94}.tile.on::before{border-color:var(--green);background:var(--green)}
+  .tile b{display:block;font-size:13px}
+  /* editor mock */
+  .ed{position:absolute;inset:32px 0 0 0;background:#fff}
+  .edbar{height:48px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 14px;gap:10px}
+  .plus{width:28px;height:28px;border-radius:4px;background:var(--wp);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:20px}
+  .edbody{padding:40px 80px;font-size:15px}
+  .edbody h3{font-size:34px;font-weight:400;margin-bottom:18px}
+  .inserter{position:absolute;left:100px;top:180px;width:300px;background:#fff;border:1px solid #ddd;box-shadow:0 4px 20px rgba(0,0,0,.15);border-radius:4px;padding:10px;font-size:13px}
+  .inserter input{width:100%;border:1px solid #949494;border-radius:2px;padding:6px 8px;font:inherit}
+  .inserter .it{display:flex;align-items:center;gap:8px;margin-top:10px;padding:6px;border-radius:4px;background:#f0f6fc}
+  .panel{position:absolute;right:0;top:48px;bottom:0;width:260px;border-left:1px solid #ddd;background:#fff;padding:14px;font-size:13px}
+  .panel input{width:100%;border:1px solid #949494;border-radius:2px;padding:5px 8px;font:inherit;margin:4px 0 10px}
+  .pv{border:1.5px solid var(--green);border-radius:10px;padding:14px;background:var(--paper);margin-top:8px;max-width:520px}
+  /* site box mock */
+  .site{position:absolute;inset:0;background:#fff;padding:30px 60px;font-family:Georgia,serif}
+  .achbox{border:1px solid var(--line);border-radius:12px;max-width:560px;overflow:hidden}
+  .achbox .hd{padding:14px 16px 4px;font-weight:600;font-size:18px}
+  .ch{display:flex;gap:10px;padding:8px 16px 14px}.opt{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:12px;font-family:system-ui,sans-serif}.opt.bank{border-color:var(--green);background:var(--paper)}.opt .p{font-family:Georgia,serif;font-size:26px;font-weight:600}.opt .go{display:block;text-align:center;border-radius:6px;padding:7px;color:#fff;font-weight:600;margin-top:8px;background:#222}.opt.bank .go{background:var(--green)}
+  .form{padding:8px 16px 14px;font-family:system-ui,sans-serif;font-size:12px}.form .f{margin-top:6px}.form .f span{display:block;color:var(--slate)}.form .f div{border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;background:#fff}
+  .agree{display:flex;gap:6px;margin-top:8px;font-size:11.5px;align-items:flex-start}.agree i{display:inline-block;width:12px;height:12px;border:1.5px solid var(--green);border-radius:3px;background:var(--green);flex:none;margin-top:2px}
+  .buy{display:block;text-align:center;background:var(--green);color:#fff;border-radius:6px;padding:9px;font-weight:600;margin-top:10px}
+  .pointer{position:absolute;width:22px;height:22px;pointer-events:none;transition:all .8s cubic-bezier(.4,0,.2,1)}
+  .pointer::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(232,163,61,.35);border:2px solid #E8A33D;animation:pulse 1.2s infinite}
+  @keyframes pulse{0%{transform:scale(.8)}50%{transform:scale(1.25)}100%{transform:scale(.8)}}
+  table.t{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #c3c4c7;margin-top:8px}table.t th,table.t td{padding:7px 9px;border-bottom:1px solid #eee;text-align:left}
+  .green{color:var(--green);font-weight:600}.amber{color:#b45309;font-weight:600}
+  @media(max-width:700px){.stage{height:600px}.edbody{padding:20px}.site{padding:16px}.wpside{display:none}.wpmain{left:0}.panel{display:none}}
+
+  .dash{position:absolute;inset:0;background:var(--paper);padding:14px 18px;overflow:hidden;font-family:"Source Sans 3",system-ui,sans-serif}
+  .dbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px}
+  .dbar b{font-family:Georgia,serif;font-size:20px}.dbar b i{color:var(--green);font-style:normal}
+  .dbar .nv{margin-left:auto;display:flex;gap:6px}.dbar .nv span{border:1px solid var(--line);border-radius:16px;padding:4px 10px;background:var(--paper)}.dbar .nv span.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .dash h2{font-family:Georgia,serif;font-weight:600;font-size:22px;margin:4px 0 4px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px;font-size:13px}
+  .card input{width:100%;max-width:440px;border:1.5px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit;font-size:13px;margin-top:3px}
+  .card label{display:block;color:var(--slate);font-size:12px;margin-top:8px}
+  .gbtn{display:inline-block;background:var(--green);color:#fff;border-radius:7px;padding:8px 14px;font-weight:600;font-size:13px}
+  .gbtn.o{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  pre.code{background:var(--ink);color:var(--paper);padding:8px 10px;border-radius:8px;font-size:11.5px;overflow:hidden;margin-top:6px}
+  .browser{position:absolute;inset:0;background:#fff}.url{height:34px;background:#f1f3f4;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 12px;font-size:12px;color:#444}.url span{background:#fff;border-radius:14px;padding:4px 12px;flex:1;margin-left:8px}
+  .page{padding:26px 60px;font-family:Georgia,serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ACHplug on any website — set it up in nine steps</h1>
+  <p class="sub">Plays by itself. Press a dot to jump, or Pause to read. About 90 seconds.</p>
+  <div class="stage" id="stage">
+
+    <!-- 1 Sign up -->
+    <div class="frame on">
+      <div class="browser"><div class="url">◁ ▷ ⟳ <span>achplug.com/signup</span></div>
+        <div class="dash" style="position:static;padding:24px 60px"><div class="dbar"><b>ACH<i>plug</i></b><div class="nv"><span>Home</span><span>Features</span><span>Find my payments</span><span class="on">Sign up</span></div></div>
+        <h2>Get started</h2><p style="font-size:14px;color:var(--slate)">You get one line of code to paste on your site, and a dashboard here where your orders land.</p>
+        <div class="card"><label>Your email</label><input value="you@yourbusiness.com"><label>Your website</label><input value="https://yourbusiness.com"><br><span class="gbtn" id="p1" style="margin-top:12px">Create my dashboard</span></div></div></div>
+      <div class="cap"><b>1 · Sign up.</b> achplug.com/signup — your email and your website. Press Create my dashboard. No password: the page you land on is your login. Bookmark it.</div>
+    </div>
+
+    <!-- 2 Setup -->
+    <div class="frame">
+      <div class="dash"><div class="dbar"><b>ACH<i>plug</i></b><div class="nv"><span class="on">Dashboard</span><span>Collect</span><span>Sales Journal</span><span>Settings</span><span>Help</span></div></div>
+        <div style="background:#fff8e6;border:1px solid #e8c77a;border-radius:8px;padding:8px 12px;font-size:12.5px"><b>Bookmark this page.</b> Its address is your login — there is no password.</div>
+        <h2 style="margin-top:8px">Step 1 of 2 — who you are and how you collect</h2>
+        <div class="card"><b>1. What is this box for?</b><div class="tiles"><div class="tile on"><b>Selling something</b>The customer pays a price. You can give a discount.</div><div class="tile"><b>Taking donations</b>Donor picks the amount. Receipt carries your tax ID.</div></div>
+        <label>Pay to — your legal name, exactly as your bank has it</label><input value="Jersey Shore Constllc"><label>Your business address</label><input value="377 Valley Rd, Clifton NJ 07013"><label>Discount for paying by bank, % — 0 to 90</label><input value="5"></div></div>
+      <div class="cap"><b>2 · Who you are.</b> Selling or donations. Your legal name exactly as your bank has it, your address, your discount for paying by bank — 0 to 90, your call.</div>
+    </div>
+
+    <!-- 3 Collecting + repeats -->
+    <div class="frame">
+      <div class="dash"><div class="dbar"><b>ACH<i>plug</i></b><div class="nv"><span class="on">Dashboard</span><span>Collect</span><span>Sales Journal</span><span>Settings</span><span>Help</span></div></div>
+        <div class="card"><b>5. How the money is collected</b><div class="tiles"><div class="tile on"><b>Customer enters their bank details and approves</b>Your bank collects it from a file ACHplug builds.</div><div class="tile"><b>Customer sends it from their bank</b>The box shows your account; they send it.</div></div>
+        <b style="display:block;margin-top:10px">6. Collecting — what your bank needs in the file</b><label>Company ID — your EIN, or the originator ID your bank assigned</label><input value="12-3456789"><label>Routing number your bank uses for ACH origination</label><input value="256074974">
+        <b style="display:block;margin-top:10px">7. Repeating payments</b><div class="tile on" style="max-width:520px;margin-top:6px"><b>Let customers select "repeat this payment"</b>Weekly, monthly or yearly — until they stop, N payments, or a date.</div>
+        <p style="font-size:12px;margin-top:12px"><b>When you press "SAVE/Next", your code to paste appears on the next screen and is emailed to you.</b></p><span class="gbtn" id="p3" style="display:block;text-align:center;max-width:520px">SAVE/Next</span></div></div>
+      <div class="cap"><b>3 · Your bank, and repeats.</b> Leave section 5 on the first choice. Section 6: your Company ID — usually your EIN — and the routing number your bank uses for ACH origination; one phone call gets both (achplug.com/help-collect has the words). Check section 7 if customers may set up repeating payments. SAVE/Next.</div>
+    </div>
+
+    <!-- 4 Your code -->
+    <div class="frame">
+      <div class="dash"><div class="dbar"><b>ACH<i>plug</i></b><div class="nv"><span class="on">Dashboard</span><span>Collect</span><span>Sales Journal</span><span>Settings</span><span>Help</span></div></div>
+        <h2>Your dashboard</h2><span class="gbtn" style="font-size:12px">Sales Journal — ACH payments · 0 orders</span>
+        <h2 style="font-size:18px;margin-top:14px">Your code — paste this on your site where the box should appear</h2><p style="font-size:13px">One line. Change the words and the price to match what you sell; use one line per thing you sell.</p>
+        <pre class="code" id="p4">&lt;script src="https://achplug.com/plug.js" data-key="6x4698g5ft" data-name="Roof inspection deposit" data-price="500" data-desc="Holds your date."&gt;&lt;/script&gt;</pre>
+        <p style="font-size:12.5px;color:var(--slate);margin-top:8px">Also emailed to you. Works in any HTML block, code block or embed: Squarespace, Wix, Square Online, Drupal, Webflow, a plain HTML page.</p></div>
+      <div class="cap"><b>4 · Your code.</b> One line. Copy it. Change the name and the price to what you sell — one line per thing you sell. It's also in your inbox.</div>
+    </div>
+
+    <!-- 5 Paste it -->
+    <div class="frame">
+      <div class="browser"><div class="url">◁ ▷ ⟳ <span>yourbusiness.com — page editor (Squarespace, Wix, Webflow, or your own HTML)</span></div>
+        <div style="padding:30px 60px;font-family:system-ui,sans-serif"><h3 style="font-family:Georgia,serif;font-size:26px;font-weight:600">Book a roof inspection</h3><p style="color:#555;font-size:14px;margin:8px 0 14px">We come out, we look, we tell you the truth about your roof.</p>
+          <div style="border:2px dashed #8aa0bf;border-radius:8px;padding:10px 12px;background:#eef2f7;font-size:12.5px"><b>Code / Embed block</b><pre class="code" id="p5" style="margin-top:6px">&lt;script src="https://achplug.com/plug.js" data-key="6x4698g5ft" data-name="Roof inspection deposit" data-price="500"&gt;&lt;/script&gt;</pre></div>
+          <p style="margin-top:14px"><span class="gbtn">Save &amp; publish</span></p></div></div>
+      <div class="cap"><b>5 · Paste it on your page.</b> In your site builder, add a Code block (Squarespace), an Embed / Custom code element (Wix, Webflow, Square Online), or edit the HTML. Paste the line where you want the box. Publish.</div>
+    </div>
+
+    <!-- 6 Live box -->
+    <div class="frame">
+      <div class="browser"><div class="url">◁ ▷ ⟳ <span>yourbusiness.com/book</span></div>
+        <div class="page"><h3 style="font-weight:600;font-size:26px;margin-bottom:12px">Book a roof inspection</h3>
+        <div class="achbox"><div class="hd">Roof inspection deposit<div style="font-size:13px;color:var(--slate);font-weight:400;font-family:system-ui,sans-serif">Holds your date. Applied to the job.</div></div>
+        <div class="ch"><div class="opt"><small>Pay by card</small><div class="p">$500.00</div><small>Instant.</small><span class="go">Pay by card</span></div><div class="opt bank"><small>Pay from your bank</small><div class="p">$475.00</div><small><s>$500.00</s> <b style="color:var(--green)">You save 5%</b></small><span class="go" id="p6">Pay from my bank</span></div></div></div></div></div>
+      <div class="cap"><b>6 · The box on your page.</b> It takes your site's fonts and colours. Card price and bank price side by side, your discount worked out. The customer presses Pay from my bank.</div>
+    </div>
+
+    <!-- 7 Form -->
+    <div class="frame">
+      <div class="browser"><div class="url">◁ ▷ ⟳ <span>yourbusiness.com/book</span></div>
+        <div class="page" style="padding-top:14px"><div class="achbox"><div class="hd">Roof inspection deposit</div>
+        <div class="form"><div class="f"><span>Your name</span><div>Maria Lopez</div></div><div class="f"><span>Email — your receipt goes here</span><div>maria@example.com</div></div>
+          <div style="border:1.5px solid var(--green);border-radius:8px;padding:8px;margin-top:8px;background:var(--paper)"><b>Your bank account</b><div class="f"><span>Routing number (9 digits)</span><div>021000021</div><small style="color:var(--green)">JPMORGAN CHASE, TAMPA FL</small></div><div class="f"><span>Account number</span><div>•••••• 6789</div></div></div>
+          <div style="border:1.5px dashed var(--line);border-radius:8px;padding:8px;margin-top:8px"><b>☑ Repeat this payment</b> every month · ◉ for 12 payments</div>
+          <div class="agree"><i></i><span>I authorize <b>Jersey Shore Constllc</b> to collect <b>$475.00</b> from this account, and each repeat, and I understand I can revoke this any time from the link in my email.</span></div>
+          <span class="buy" id="p7">Buy — $475.00</span></div></div></div></div>
+      <div class="cap"><b>7 · The customer's form.</b> Name, email, routing number — their bank's name appears as they type — account number. Repeat every month for 12 payments, if you allowed it. One sentence of authorization. Buy. Confirmation on screen and by email.</div>
+    </div>
+
+    <!-- 8 Collect -->
+    <div class="frame">
+      <div class="dash"><div class="dbar"><b>ACH<i>plug</i></b><div class="nv"><span>Dashboard</span><span class="on">Collect</span><span>Sales Journal</span><span>Settings</span><span>Help</span></div></div>
+        <h2>Collect</h2><p style="font-size:13px">Ready to collect (1) · $475.00</p><table class="t"><tr><th>Ref</th><th>Customer</th><th>Bank</th><th>Amount</th></tr><tr><td>JS-482913</td><td>Maria Lopez</td><td>JPMORGAN CHASE ····6789</td><td>$475.00</td></tr></table>
+        <p style="margin-top:12px"><span class="gbtn" id="p8">Download bank file (1 payment, $475.00)</span> &nbsp; <span class="gbtn o">I uploaded it — mark all as sent to bank</span></p>
+        <p style="font-size:13px;margin-top:14px"><b>Sent to bank — waiting to clear</b></p><table class="t"><tr><th>Ref</th><th>Customer</th><th>Amount</th><th></th></tr><tr><td>JS-118204</td><td>Tom Reilly</td><td>$500.00</td><td><span class="gbtn" style="padding:3px 8px;font-size:12px">Received</span> <span class="gbtn o" style="padding:3px 8px;font-size:12px">Returned</span></td></tr></table>
+        <p style="font-size:12px;color:var(--slate);margin-top:10px">Every morning there is something to collect, this file and these links come to you by email.</p></div>
+      <div class="cap"><b>8 · Your one job — Collect.</b> Download the bank file. Upload it on your bank's ACH origination page. Press "I uploaded it." When the money lands, press Received — the customer gets their receipt. One minute a day; the morning email reminds you.</div>
+    </div>
+
+    <!-- 9 Journal -->
+    <div class="frame">
+      <div class="dash"><div class="dbar"><b>ACH<i>plug</i></b><div class="nv"><span>Dashboard</span><span>Collect</span><span class="on">Sales Journal</span><span>Settings</span><span>Help</span></div></div>
+        <h2>Sales Journal — ACH payments</h2>
+        <div style="display:flex;gap:8px;margin-top:6px">${''.join(f'<div class="card" style="flex:1;margin:0;text-align:center"><small style="color:var(--slate)">{a}</small><div style="font-family:Georgia,serif;font-size:20px;font-weight:600;color:var(--green)">{b}</div></div>' for a,b in [("Last 7 days","$975.00"),("This month","$1,507.00"),("This year","$3,842.55"),("All time","$3,842.55"),("Card fees you did not pay","$113.14")])}</div>
+        <p style="font-size:12.5px;margin-top:10px"><span class="gbtn o" style="padding:4px 10px;font-size:12px;background:var(--ink);color:#fff">Unpaid (2)</span> <span class="gbtn o" style="padding:4px 10px;font-size:12px">Paid (5)</span> <span class="gbtn o" style="padding:4px 10px;font-size:12px">All (7)</span> &nbsp; <span class="gbtn o" style="padding:4px 10px;font-size:12px" id="p9">Download CSV</span></p>
+        <table class="t"><tr><th>Ref</th><th>Date</th><th>Status</th><th>Customer</th><th>Product</th><th>Amount</th></tr><tr><td>JS-482913</td><td>2026-09-03</td><td class="amber">authorized</td><td>Maria Lopez</td><td>Roof inspection deposit</td><td>$475.00</td></tr><tr><td>JS-118204</td><td>2026-09-02</td><td class="amber">collecting</td><td>Tom Reilly</td><td>Roof inspection deposit</td><td>$500.00</td></tr><tr><td>JS-771530</td><td>2026-09-01</td><td class="green">paid</td><td>D. Nguyen</td><td>Annual membership</td><td>$57.00</td></tr></table></div>
+      <div class="cap"><b>9 · The Sales Journal.</b> This week, this month, this year, all time — and the card fees you did not pay. Unpaid, Paid, All. Search it. Download the CSV for your accountant. That's ACHplug: $25, once. achplug.com.</div>
+    </div>
+
+    <div class="pointer" id="ptr" style="left:40%;top:30%"></div>
+  </div>
+  <div class="bar" id="bar"></div>
+  <div class="ctl"><button id="prev">‹ Back</button><button id="play" class="primary">Pause</button><button id="next">Next ›</button><div class="dots" id="dots"></div></div>
+</div>
+<script>
+(function(){
+  var frames=[].slice.call(document.querySelectorAll('.frame')),i=0,t=null,playing=true,DUR=9000;
+  var ptr=document.getElementById('ptr'),bar=document.getElementById('bar'),dots=document.getElementById('dots');
+  var targets={0:'p1',2:'p3',3:'p4',4:'p5',5:'p6',6:'p7',7:'p8',8:'p9'};
+  frames.forEach(function(_,k){var d=document.createElement('span');d.addEventListener('click',function(){go(k);});dots.appendChild(d);});
+  function point(k){var id=targets[k];var st=document.getElementById('stage').getBoundingClientRect();if(id){var el=document.getElementById(id);var r=el.getBoundingClientRect();ptr.style.left=(r.left-st.left+r.width/2-11)+'px';ptr.style.top=(r.top-st.top+r.height/2-11)+'px';ptr.style.opacity=1;}else ptr.style.opacity=0;}
+  function go(k){i=(k+frames.length)%frames.length;frames.forEach(function(f,j){f.classList.toggle('on',j===i);});[].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===i);});setTimeout(function(){point(i);},60);bar.style.transition='none';bar.style.width='0';if(playing){setTimeout(function(){bar.style.transition='width '+DUR+'ms linear';bar.style.width='100%';},30);}clearTimeout(t);if(playing)t=setTimeout(function(){go(i+1);},DUR);}
+  document.getElementById('next').onclick=function(){go(i+1);};document.getElementById('prev').onclick=function(){go(i-1);};
+  document.getElementById('play').onclick=function(){playing=!playing;this.textContent=playing?'Pause':'Play';go(i);};
+  window.addEventListener('resize',function(){point(i);});go(0);
+})();
+</script>
+</body>
+</html>
