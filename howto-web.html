@@ -22,8 +22,8 @@
   h1{font-family:Georgia,serif;font-weight:600;font-size:24px;margin-bottom:4px}
   .sub{color:var(--slate);font-size:14px;margin-bottom:12px}
   .stage{position:relative;background:#f0f0f1;border:1px solid #c3c4c7;border-radius:10px;overflow:hidden;height:520px}
-  .frame{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s;pointer-events:none;background:#f0f0f1}
-  .frame.on{opacity:1;visibility:visible;transition:opacity .4s;pointer-events:auto}
+  .frame{position:absolute;inset:0;display:none;background:#f0f0f1}
+  .frame.on{display:block;animation:fadein .35s}@keyframes fadein{from{opacity:0}to{opacity:1}}
   .cap{position:absolute;left:0;right:0;bottom:0;background:rgba(23,37,31,.92);color:#fff;padding:12px 18px;font-size:15px;line-height:1.4}
   .cap b{color:#9cc7b1}
   .ctl{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
