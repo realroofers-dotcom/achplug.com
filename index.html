@@ -54,6 +54,9 @@
   .two div{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px}
   .two b{display:block;margin-bottom:4px}
   .two p{font-size:15px;color:var(--slate)}
+  /* Get section: one full-width column — the checkout box needs ~500px and the page is 760px, so side by side squeezes it */
+  #buy .two{grid-template-columns:minmax(0,1fr);gap:18px}
+  #buy .two>div{min-width:0}
   .fit{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
   .fit .demo-a,.fit .demo-b{border-radius:10px;padding:14px;font-size:14px}
   .demo-a{background:#fff;border:1px solid #ddd;font-family:Georgia,serif;color:#222}
