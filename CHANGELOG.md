@@ -2,6 +2,7 @@
 
 Moved out of the first line of worker.js on 21 Sep 2026 (the line was 3036 characters). Newest first, as it was written.
 
+- 3d, 21 Sep 2026 — /phone: the owner's box on their own phone. achplug.com/phone?key=KEY — type what it is for and the amount, the box renders, hand the phone over; same key, journal and bank file; nothing repeats from it. "Your phone" link on the dashboard. The door for it is achpayapp.com (1b). 3c — the changelog moved here from the worker's first line.
 - ACHplug worker — build 3b, 4 Sep 2026 — Your code section explains data-repeat="off" per product. 3a — a box with data-repeat="off" hides the repeat panel even when the seller allows repeats. 2z — fix: the code box on the ACH form (missed in 2x/2y). 2y: Settings codes box. 2x — promo codes on the ACH form: seller sets codes in Settings (CODE=amount, one per line); buyer types it; journal shows it.
 - 2w, 4 Sep 2026 — roles are Owner / Bookkeeper / Auditor (read-only, every site, every file, CSVs). 2v: TEAM; they set their own password; actions are signed by the user.
 - 2u, 4 Sep 2026 — password re-entry to mark a file sent and to mark a payment received/returned; the login that signed is recorded.
